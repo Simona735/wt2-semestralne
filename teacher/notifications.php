@@ -34,7 +34,8 @@ if (!isset($_SESSION["loggedTeacher"])) {
                 <img class="ms-5 me-2 mb-1" src="../img/to%20do%20icon.png" alt="" width="30" height="30">
                 <span class="fs-4">Exam</span>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04"
+                    aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -85,7 +86,8 @@ if (!isset($_SESSION["loggedTeacher"])) {
 
     <main class="px-3">
         <h1>Cover your page.</h1>
-        <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p>
+        <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the
+            text, and add your own fullscreen background photo to make it your own.</p>
         <p class="lead">
             <a href="#" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Learn more</a>
         </p>
