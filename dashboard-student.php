@@ -1,4 +1,9 @@
 <?php
+session_start();
+if(!isset($_SESSION["loggedStudent"])){
+    header("location: index.php");
+}
+
 ?>
 
 <!doctype html>
@@ -19,7 +24,7 @@
     <div id="studentSidebar" class="text-white bg-dark p-3 d-flex flex-column h-100">
         <div class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white ">
             <img src="img/user%20icon.svg" alt="user-pic" width="32" height="32" class="rounded-circle me-3">
-            <span class="fs-4">Meno</span>
+            <span class="fs-4"><?php echo $_SESSION["name"] ?></span>
         </div>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
