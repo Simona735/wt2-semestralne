@@ -13,7 +13,7 @@ if(isset($_SESSION["loggedStudent"])){
 }
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    $register->registerTeacher();
+    $register->registerTeacher($_POST["name"], $_POST["surname"], $_POST["floatingInput"], $_POST["floatingPassword"]);
 }
 ?>
 
@@ -50,7 +50,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             </div>
 
             <div class="form-floating">
-                <input type="email" class="form-control" id="floatingInput" name="floatingInput" placeholder="name@example.com">
+                <input type="email" class="form-control" id="floatingInput" name="floatingInput" placeholder="name@example.com" required>
                 <label for="floatingInput">Email address</label>
             </div>
 
