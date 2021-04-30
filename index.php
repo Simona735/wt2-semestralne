@@ -1,4 +1,29 @@
 <?php
+require_once "Controllers/LoginController.php";
+$login = new LoginController();
+session_start();
+
+if (isset($_SESSION["loggedTeacher"]) || isset($_COOKIE["remember"])) {
+    header("location: dashboard-teacher.php");
+}
+
+if (isset($_SESSION["loggedStudent"])) {
+    header("location: dashboard-student.php");
+}
+
+$action = isset($_POST['action']) ? $_POST['action'] : null;
+switch ($action) {
+    case 'loginStudent':
+        $login->loginStudent($_POST["examCode"], $_POST["Name"], $_POST["Surname"], $_POST["StudentID"]);
+        break;
+    case 'loginTeacher':
+        if (isset($_POST["remember-me"])) {
+            $login->loginTeacher($_POST["floatingInput"], $_POST["floatingPassword"], $_POST["remember-me"]);
+        } else {
+            $login->loginTeacher($_POST["floatingInput"], $_POST["floatingPassword"], 0);
+        }
+        break;
+}
 ?>
 
 
@@ -10,7 +35,8 @@
     <title>Welcome</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 
     <!-- Custom styles for this template -->
     <link href="css/styles.css" rel="stylesheet">
@@ -29,44 +55,48 @@
             </li>
         </ul>
 
-        <form id="studentSignInForm" class="mb-1">
+        <form id="studentSignInForm" action="<?php $_SERVER["PHP_SELF"] ?>" method="post" class="mb-1">
             <div class="form-floating">
-                <input type="text" class="form-control" id="examCode" placeholder="ABC123" required>
+                <input type="text" class="form-control" id="examCode" name="examCode" placeholder="ABC123" required>
                 <label for="examCode">Kód testu</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="Name" placeholder="Ferko" required>
+                <input type="text" class="form-control" id="Name" name="Name" placeholder="Ferko" required>
                 <label for="Name">Meno</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="Surname" placeholder="Mrkvička" required>
+                <input type="text" class="form-control" id="Surname" name="Surname" placeholder="Mrkvička" required>
                 <label for="Surname">Priezvisko</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="StudentID" placeholder="12345" required>
+                <input type="text" class="form-control" id="StudentID" name="StudentID" placeholder="12345" required>
                 <label for="StudentID">Identifikačné číslo</label>
             </div>
+            <input type="hidden" name="action" value="loginStudent">
             <button class="w-100 btn btn-lg btn-primary my-3" type="submit">Prejdi na test</button>
             <p class="mt-5 mb-3 text-muted">&copy; 2021 - WEBTECH2</p>
         </form>
 
-        <form id="teacherSignInForm" class="mb-1">
+        <form id="teacherSignInForm" action="<?php $_SERVER["PHP_SELF"] ?>" method="post" class="mb-1">
             <div class="form-floating">
-                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <input type="email" class="form-control" id="floatingInput" name="floatingInput"
+                       placeholder="name@example.com">
                 <label for="floatingInput">Email address</label>
             </div>
             <div class="form-floating">
-                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                <input type="password" class="form-control" id="floatingPassword" name="floatingPassword"
+                       placeholder="Password" required>
                 <label for="floatingPassword">Password</label>
             </div>
 
             <div class="checkbox my-3">
                 <label>
-                    <input type="checkbox" value="remember-me"> Zapamataj si ma
+                    <input type="checkbox" value="remember-me" name="remember-me"> Zapamataj si ma
                 </label>
             </div>
+            <input type="hidden" name="action" value="loginTeacher">
             <button class="w-100 btn btn-lg btn-primary mb-3" type="submit">Prihlásiť</button>
-            <p>Ak nemáš účet, prosím <a href="#" class="link-secondary">registruj sa</a>.</p>
+            <p>Ak nemáš účet, prosím <a href="registration.php" class="link-secondary">registruj sa</a>.</p>
             <p class="mt-5 mb-3 text-muted">&copy; 2021 - WEBTECH2</p>
         </form>
 
@@ -76,7 +106,9 @@
 
 </body>
 <script src="https://code.jquery.com/jquery-3.5.1.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+        crossorigin="anonymous"></script>
 <script src="js/javascript.js"></script>
 </html>
 
