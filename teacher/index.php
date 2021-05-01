@@ -42,6 +42,9 @@
                     <li class="nav-item me-2">
                         <a class="nav-link" href="#" tabindex="-1" >Upozornenia</a>
                     </li>
+                    <li class="nav-item me-2">
+                        <a class="nav-link" href="#" tabindex="-1" >Bodovanie</a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false">Prehľad</a>
                         <ul class="dropdown-menu" aria-labelledby="dropdown04">

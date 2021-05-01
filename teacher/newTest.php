@@ -42,6 +42,9 @@
                     <li class="nav-item me-2">
                         <a class="nav-link" href="#" tabindex="-1" >Upozornenia</a>
                     </li>
+                    <li class="nav-item me-2">
+                        <a class="nav-link" href="#" tabindex="-1" >Bodovanie</a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false">Prehľad</a>
                         <ul class="dropdown-menu" aria-labelledby="dropdown04">
@@ -87,12 +90,6 @@
                         Viaceré odpovede
                     </a>
                 </li>
-<!--                <li class="nav-item questions-list">-->
-<!--                    <button type="button" class="nav-link btn-outline-primary text-white">-->
-<!--                        <i class="bi bi-plus-square-dotted me-1"></i>-->
-<!--                        Viaceré odpovede-->
-<!--                    </button>-->
-<!--                </li>-->
                 <li class="nav-item questions-list">
                     <a href="#" id="pair-question" class="nav-link btn-outline-primary text-white">
                         <i class="bi bi-plus-square-dotted me-1"></i>
@@ -113,11 +110,11 @@
                 </li>
             </ul>
             <hr>
-            <button type="button" class="btn btn-success mb-3">Vytvoriť</button>
+            <button type="button" class="btn btn-success mb-3">Hotovo</button>
 
         </div>
-        <div class="p-3 bg-light w-100 test-page">
-            <div class="bg-white h-100 paper-shadow">
+        <div class="p-3 bg-light w-100 test-page overflow-auto">
+            <div class="bg-white h-100 paper-shadow ">
                 <h2 class="py-1">Nový test</h2>
                 <form>
                     <ol class="list-group list-group-numbered">
@@ -132,7 +129,12 @@
                                     <input type="text" class="form-control" id="example2" aria-describedby="odpoved">
                                 </div>
                             </div>
-                            <span class="badge bg-primary rounded-pill">1b</span>
+                            <div>
+                                <a href="#" class="btn-exit">
+                                    <i class="bi bi-x-circle-fill"></i>
+                                </a>
+                            </div>
+
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                             <div class="ms-2 me-auto text-start align-items-start">
@@ -145,20 +147,56 @@
                                     <input type="text" class="form-control" id="example2" aria-describedby="odpoved">
                                 </div>
                             </div>
-                            <span class="badge bg-primary rounded-pill">1b</span>
+                            <div>
+                                <a href="#" class="btn-exit">
+                                    <i class="bi bi-x-circle-fill"></i>
+                                </a>
+                            </div>
                         </li>
+
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                             <div class="ms-2 me-auto text-start align-items-start">
                                 <div class="fw-bold">
                                     <label for="example1" >otazka:</label>
                                     <input type="text" class="form-control" id="example1" aria-describedby="otazka">
                                 </div>
-                                <div class="py-2">
-                                    <label for="example2" >odpoved:</label>
-                                    <input type="text" class="form-control" id="example2" aria-describedby="odpoved">
-                                </div>
+                                <ul>
+                                    <li>
+                                        <div class="form-group">
+                                            <label for="example1" >moznost:</label>
+                                            <input type="text" class="form-control" id="example1" aria-describedby="otazka">
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                správna
+                                            </label>
+                                        </div>
+
+                                    </li>
+                                    <li>
+                                        <div class="form-group">
+                                            <label for="example1" >moznost:</label>
+                                            <input type="text" class="form-control" id="example1" aria-describedby="otazka">
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                správna
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label for="example1" >moznost:</label>
+                                        <input type="text" class="form-control" id="example1" aria-describedby="otazka">
+                                    </li>
+                                    <li>
+                                        <label for="example1" >moznost:</label>
+                                        <input type="text" class="form-control" id="example1" aria-describedby="otazka">
+                                    </li>
+                                </ul>
                             </div>
-                            <span class="badge bg-primary rounded-pill">1b</span>
+                            <div>
+                                <a href="#" class="btn-exit">
+                                    <i class="bi bi-x-circle-fill"></i>
+                                </a>
+                            </div>
                         </li>
                     </ol>
                 </form>

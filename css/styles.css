@@ -1,5 +1,6 @@
 body, html, .full-page{
     height: 100%;
+    /*overflow-y:hidden;*/
 }
 
 #teacherSignInForm{
@@ -31,4 +32,12 @@ body, html, .full-page{
 
 .paper-shadow{
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.btn-exit:hover {
+    color: #F67C01;
+}
+.btn-exit {
+    color: #ff9903;
+    text-decoration: underline;
 }

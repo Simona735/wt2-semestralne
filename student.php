@@ -11,7 +11,7 @@
     <!-- Bootstrap core CSS -->
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
     <!-- Custom styles for this template -->
     <link href="css/styles.css" rel="stylesheet">
     <link href="css/primary.css" rel="stylesheet">
@@ -64,25 +64,26 @@
             <form>
                 <ol class="list-group list-group-numbered">
                     <li class="list-group-item d-flex justify-content-between align-items-start">
-                        <div class="ms-2 me-auto">
-                            <div class="fw-bold">otazka</div>
-                            <div>odpoved</div>
+                        <div class="ms-2 me-auto text-start align-items-start">
+                            <div class="fw-bold">
+                                otazka
+                            </div>
+                            <div class="py-2">
+                                <label for="example2" >odpoved:</label>
+                                <input type="text" class="form-control" id="example2" aria-describedby="odpoved">
+                            </div>
                         </div>
-                        <span class="badge bg-primary rounded-pill">14</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-start">
-                        <div class="ms-2 me-auto">
-                            <div class="fw-bold">otazka</div>
-                            <div>odpoved</div>
+                        <div class="ms-2 me-auto text-start align-items-start">
+                            <div class="fw-bold">
+                                otazka
+                            </div>
+                            <div class="py-2">
+                                <label for="example2" >odpoved:</label>
+                                <input type="text" class="form-control" id="example2" aria-describedby="odpoved">
+                            </div>
                         </div>
-                        <span class="badge bg-primary rounded-pill">14</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                        <div class="ms-2 me-auto">
-                            <div class="fw-bold">otazka</div>
-                            <div>odpoved</div>
-                        </div>
-                        <span class="badge bg-primary rounded-pill">14</span>
                     </li>
                 </ol>
             </form>
