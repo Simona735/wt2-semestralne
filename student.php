@@ -1,6 +1,10 @@
 <?php
-?>
+session_start();
+if(!isset($_SESSION["loggedStudent"])){
+    header("location: index.php");
+}
 
+?>
 <!doctype html>
 <html lang="sk">
 <head>
@@ -21,7 +25,7 @@
     <div id="studentSidebar" class="text-white bg-dark p-3 d-flex flex-column h-100">
         <div class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white ">
             <img src="img/user%20icon.svg" alt="user-pic" width="32" height="32" class="rounded-circle me-3">
-            <span class="fs-4">Meno</span>
+            <span class="fs-4"><?php echo $_SESSION["name"] ?></span>
         </div>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
@@ -55,8 +59,8 @@
         <button type="button" class="btn btn-danger mb-3">Odovzdať</button>
 
     </div>
-    <div class="p-3 bg-light w-100 test-page">
-        <div class="bg-white h-100 paper-shadow">
+    <div class="p-3 bg-light w-100 test-page overflow-auto ">
+        <div class="bg-white paper-shadow">
             <h2 class="py-1">Test číslo xxx</h2>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Launch demo modal
@@ -66,10 +70,10 @@
                     <li class="list-group-item d-flex justify-content-between align-items-start">
                         <div class="ms-2 me-auto text-start align-items-start">
                             <div class="fw-bold">
-                                otazka
+                                otázka
                             </div>
                             <div class="py-2">
-                                <label for="example2" >odpoved:</label>
+                                <label for="example2" >odpoveď:</label>
                                 <input type="text" class="form-control" id="example2" aria-describedby="odpoved">
                             </div>
                         </div>
@@ -77,11 +81,21 @@
                     <li class="list-group-item d-flex justify-content-between align-items-start">
                         <div class="ms-2 me-auto text-start align-items-start">
                             <div class="fw-bold">
-                                otazka
+                                otázka
                             </div>
                             <div class="py-2">
-                                <label for="example2" >odpoved:</label>
-                                <input type="text" class="form-control" id="example2" aria-describedby="odpoved">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        Default checkbox
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                                    <label class="form-check-label" for="flexCheckChecked">
+                                        Checked checkbox
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </li>

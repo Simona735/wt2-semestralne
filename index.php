@@ -30,44 +30,46 @@
             </li>
         </ul>
 
-        <form id="studentSignInForm" class="mb-1">
+        <form id="studentSignInForm" action="<?php $_SERVER["PHP_SELF"] ?>" method="post" class="mb-1">
             <div class="form-floating">
-                <input type="text" class="form-control" id="examCode" placeholder="ABC123" required>
+                <input type="text" class="form-control" id="examCode" name="examCode" placeholder="ABC123" required>
                 <label for="examCode">Kód testu</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="Name" placeholder="Ferko" required>
+                <input type="text" class="form-control" id="Name" name="Name" placeholder="Ferko" required>
                 <label for="Name">Meno</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="Surname" placeholder="Mrkvička" required>
+                <input type="text" class="form-control" id="Surname" name="Surname" placeholder="Mrkvička" required>
                 <label for="Surname">Priezvisko</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="StudentID" placeholder="12345" required>
+                <input type="text" class="form-control" id="StudentID" name="StudentID" placeholder="12345" required>
                 <label for="StudentID">Identifikačné číslo</label>
             </div>
+            <input type="hidden" name="action" value="loginStudent">
             <button class="w-100 btn btn-lg btn-primary my-3" type="submit">Prejdi na test</button>
             <p class="mt-5 mb-3 text-muted">&copy; 2021 - WEBTECH2</p>
         </form>
 
-        <form id="teacherSignInForm" class="mb-1">
+        <form id="teacherSignInForm" action="<?php $_SERVER["PHP_SELF"] ?>" method="post" class="mb-1">
             <div class="form-floating">
-                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                <label for="floatingInput">Email address</label>
+                <input type="email" class="form-control" id="teacherEmail" name="teacherEmail" placeholder="name@example.com">
+                <label for="teacherEmail">Email address</label>
             </div>
             <div class="form-floating">
-                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                <label for="floatingPassword">Password</label>
+                <input type="password" class="form-control" id="teacherPassword" name="teacherPassword" placeholder="Password">
+                <label for="teacherPassword">Password</label>
             </div>
 
             <div class="checkbox my-3">
                 <label>
-                    <input type="checkbox" value="remember-me"> Zapamataj si ma
+                    <input type="checkbox" name="remember-me" value="remember-me"> Zapamataj si ma
                 </label>
             </div>
+            <input type="hidden" name="action" value="loginTeacher">
             <button class="w-100 btn btn-lg btn-primary mb-3" type="submit">Prihlásiť</button>
-            <p>Ak nemáš účet, prosím <a href="#" class="link-secondary">registruj sa</a>.</p>
+            <p>Ak nemáš účet, prosím <a href="registration.php" class="link-secondary">registruj sa</a>.</p>
             <p class="mt-5 mb-3 text-muted">&copy; 2021 - WEBTECH2</p>
         </form>
 

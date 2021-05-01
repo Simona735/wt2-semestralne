@@ -3,6 +3,10 @@ body, html, .full-page{
     /*overflow-y:hidden;*/
 }
 
+.page-height{
+    height: calc(100% - 67px);
+}
+
 #teacherSignInForm{
     display: none;
 }

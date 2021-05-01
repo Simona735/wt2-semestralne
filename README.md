@@ -6,7 +6,7 @@ Link to [page](https://wt132.fei.stuba.sk/exam/).
 
 ## Task List
 
-- [ ] prihlasovanie sa do aplikácie (študent, učiteľ)                                                                                
+- [X] prihlasovanie sa do aplikácie (študent, učiteľ)                                                                                
 - [ ] realizácia otázok s viacerými odpoveďami (zadávanie, zobrazovanie, vyhodnotenie)                                               
 - [ ] realizácia otázok s krátkymi odpoveďami (zadávanie, zobrazovanie, vyhodnotenie)                                                
 - [ ] realizácia párovacích otázok (zadávanie, zobrazovanie, vyhodnotenie)                                                           
