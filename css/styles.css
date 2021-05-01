@@ -9,3 +9,26 @@ body, html, .full-page{
 #studentSidebar {
     width: 280px;
 }
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link{
+    background-color: #ff9903;
+}
+
+.nav-item a{
+    color: black;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #F67C01;
+    /*background-color: #fff;*/
+    background-color: #FFFAF3;
+    border-color: #dee2e6 #dee2e6 #fff;
+}
+
+.questions-list{
+    text-align: left;
+}
+
+.paper-shadow{
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}

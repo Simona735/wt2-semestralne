@@ -14,6 +14,7 @@
 
     <!-- Custom styles for this template -->
     <link href="css/styles.css" rel="stylesheet">
+    <link href="css/primary.css" rel="stylesheet">
 </head>
 <body class="text-center bg-light">
 <div class="cover-container pt-5 d-flex mx-auto flex-column">

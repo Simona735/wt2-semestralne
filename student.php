@@ -9,10 +9,12 @@
     <title>Student</title>
 
     <!-- Bootstrap core CSS -->
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 
     <!-- Custom styles for this template -->
     <link href="css/styles.css" rel="stylesheet">
+    <link href="css/primary.css" rel="stylesheet">
 </head>
 <body class="text-center">
 <div class="d-flex flex-row h-100" >
@@ -53,10 +55,39 @@
         <button type="button" class="btn btn-danger mb-3">Odovzdať</button>
 
     </div>
-    <div class="p-3">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Launch demo modal
-        </button>
+    <div class="p-3 bg-light w-100 test-page">
+        <div class="bg-white h-100 paper-shadow">
+            <h2 class="py-1">Test číslo xxx</h2>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Launch demo modal
+            </button>
+            <form>
+                <ol class="list-group list-group-numbered">
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">otazka</div>
+                            <div>odpoved</div>
+                        </div>
+                        <span class="badge bg-primary rounded-pill">14</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">otazka</div>
+                            <div>odpoved</div>
+                        </div>
+                        <span class="badge bg-primary rounded-pill">14</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">otazka</div>
+                            <div>odpoved</div>
+                        </div>
+                        <span class="badge bg-primary rounded-pill">14</span>
+                    </li>
+                </ol>
+            </form>
+        </div>
+
     </div>
 </div>
 
@@ -74,6 +105,6 @@
 </div>
 
 </body>
-
+<script src="https://code.jquery.com/jquery-3.5.1.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 </html>
