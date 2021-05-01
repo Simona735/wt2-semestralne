@@ -1,4 +1,30 @@
 <?php
+require_once "Controllers/LoginController.php";
+$login = new LoginController();
+session_start();
+
+if (isset($_SESSION["loggedTeacher"]) || isset($_COOKIE["remember"])) {
+    header("location: teacher/index.php");
+}
+
+if (isset($_SESSION["loggedStudent"])) {
+    header("location: student.php");
+}
+
+$action = isset($_POST['action']) ? $_POST['action'] : null;
+switch ($action) {
+    case 'loginStudent':
+        $login->loginStudent($_POST["examCode"], $_POST["Name"], $_POST["Surname"], $_POST["StudentID"]);
+        break;
+    case 'loginTeacher':
+        if (isset($_POST["remember-me"])) {
+            $login->loginTeacher($_POST["teacherEmail"], $_POST["teacherPassword"], $_POST["remember-me"]);
+        } else {
+            $login->loginTeacher($_POST["teacherEmail"], $_POST["teacherPassword"], 0);
+        }
+        break;
+}
+
 ?>
 
 
