@@ -4,7 +4,8 @@ require_once "config.php";
 class Database {
     private $conn;
 
-    public function getConnection(){
+    public function getConnection(): ?PDO
+    {
         $this->conn = null;
         try{
             $this->conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASSWORD);

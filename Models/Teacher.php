@@ -3,10 +3,27 @@
 
 class Teacher
 {
+    private int $ID;
     private string $name;
     private string $surname;
     private string $email;
     private string $password;
+
+    /**
+     * @return int
+     */
+    public function getID()
+    {
+        return $this->ID;
+    }
+
+    /**
+     * @param int $ID
+     */
+    public function setID($ID)
+    {
+        $this->ID = $ID;
+    }
 
     /**
      * @return string

@@ -3,6 +3,7 @@
 require_once "./db connection/Database.php";
 require_once "./Models/Teacher.php";
 require_once "./Models/Student.php";
+require_once "./Models/Test.php";
 session_start();
 
 class LoginController
@@ -15,22 +16,50 @@ class LoginController
         $this->conn = (new Database())->getConnection();
     }
 
-    public function loginStudent(string $examCode, string $name, string $surname, string $studentID)
+    public function loginStudent(string $testId, string $name, string $surname, string $studentID)
     {
-        $insertStudent = $this->conn->prepare("insert into student(name, surname, studentID, testID) values (:name, :surname, :studentID, :testID)");
+        $insertStudent = $this->conn->prepare("insert into student(name, surname, studentID) values (:name, :surname, :studentID)");
         $insertStudent->bindValue("name", $name);
         $insertStudent->bindValue("surname", $surname);
         $insertStudent->bindValue("studentID", $studentID);
-        $insertStudent->bindValue("testID", $examCode);
 
+        $insertStudentTest = $this->conn->prepare("insert into student_test(student_id, test_id) values (:student_id, :test_id)");
+        $insertStudentTest->bindValue("test_id", $testId);
+        
         try {
             $insertStudent->execute();
+
+            $studentDBID = $this->conn->lastInsertId();
+            $insertStudentTest->bindValue("student_id", $studentDBID);
+
+            $insertStudentTest->execute();
+
             $_SESSION["loggedStudent"] = true;
             $_SESSION["name"] = $name;
-            header("location: student.php");
+            header("location: student/student.php");
         } catch (Exception $e) {
-//            echo "Študent už existuje";
-            returnAlert("Študent už existuje");
+            returnAlert("Študent už existuje".$e);
+        }
+    }
+
+    public function checkTest($testCode){
+        $getTest = $this->conn->prepare("select * from test where test_code = :code");
+        $getTest->bindValue("code", $testCode);
+        $getTest->setFetchMode(PDO::FETCH_CLASS, "Test");
+        $getTest->execute();
+        $test = $getTest->fetch();
+
+        if ($test == null) {
+            returnAlert("Neplatný kód");
+            return -1;
+        }
+
+        if ($test->isActivation()) {
+            $_SESSION["testID"] = $test->getTestCode();
+            return $test->getID();
+        } else {
+            returnAlert("Test nie je prístupný");
+            return -1;
         }
     }
 
@@ -42,18 +71,16 @@ class LoginController
         $getTeacher->execute();
         $teacher = $getTeacher->fetch();
         if ($teacher == null) {
-//            echo "Neplatné prihlásenie";
             returnAlert("Neplatné prihlásenie");
             return;
         }
         if (password_verify($password, $teacher->getPassword())) {
             if ($checked == 1) {
-                setcookie("remember", true, time() + 18000);
+                setcookie("remember", $teacher->getID(), time() + 18000);
             }
-            $_SESSION["loggedTeacher"] = true;
+            $_SESSION["loggedTeacher"] = $teacher->getID();
             header("location: teacher/index.php");
         } else {
-//            echo "Zlé heslo";
             returnAlert("Zlé heslo");
             session_destroy();
         }
@@ -72,7 +99,6 @@ class LoginController
             header("location: index.php");
         } catch (Exception $e) {
             returnAlert("Neplatná registrácia");
-//            echo "Neplatná registrácia";
         }
     }
 }

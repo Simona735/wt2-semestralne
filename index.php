@@ -8,13 +8,18 @@ if (isset($_SESSION["loggedTeacher"]) || isset($_COOKIE["remember"])) {
 }
 
 if (isset($_SESSION["loggedStudent"])) {
-    header("location: student.php");
+    header("location: student/student.php");
 }
+
 
 $action = isset($_POST['action']) ? $_POST['action'] : null;
 switch ($action) {
     case 'loginStudent':
-        $login->loginStudent($_POST["examCode"], $_POST["Name"], $_POST["Surname"], $_POST["StudentID"]);
+        $result = $login->checkTest($_POST['examCode']);
+        if ($result > 0){
+            $login->loginStudent($result, $_POST["Name"], $_POST["Surname"], $_POST["StudentID"]);
+        }
+//        $login->loginStudent($_POST["examCode"], $_POST["Name"], $_POST["Surname"], $_POST["StudentID"]);
         break;
     case 'loginTeacher':
         if (isset($_POST["remember-me"])) {

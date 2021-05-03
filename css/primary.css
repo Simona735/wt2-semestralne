@@ -131,6 +131,11 @@ button.bg-primary:focus {
     background-color: #fff1de;
 }
 
+.table-primary{
+    --bs-table-bg: #ffffff;
+    border-color: #eabe7e;
+}
+
 .table-hover .table-primary:hover {
     background-color: #ffe7c5;
 }

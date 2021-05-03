@@ -30,6 +30,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     <!-- Custom styles for this template -->
     <link href="css/styles.css" rel="stylesheet">
+
+    <link rel="icon" href="img/to%20do%20icon.png" type="image/png" sizes="16x16">
 </head>
 <body class="text-center bg-light">
 

@@ -16,3 +16,15 @@ function toggleSignUp(e){
         $('#teacherButton').removeClass( "active" );
     }
 }
+
+function switchActive(id){
+    var active = 0;
+
+    if($("#switch-"+ id).prop("checked")){
+        active = 1;
+    }else{
+        active = 0;
+    }
+
+    $.post( "../ModelControllers/TestModelController.php", { activeState: active, testId: id});
+}

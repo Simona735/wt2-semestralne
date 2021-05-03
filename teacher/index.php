@@ -2,7 +2,7 @@
 session_start();
 
 if(isset($_COOKIE["remember"])){
-    $_SESSION["loggedTeacher"] = true;
+    $_SESSION["loggedTeacher"] = $_COOKIE["remember"];
 }
 
 if (!isset($_SESSION["loggedTeacher"])) {
@@ -24,6 +24,7 @@ if (!isset($_SESSION["loggedTeacher"])) {
     <!-- Custom styles for this template -->
     <link href="../css/styles.css" rel="stylesheet">
     <link href="../css/primary.css" rel="stylesheet">
+    <link rel="icon" href="../img/to%20do%20icon.png" type="image/png" sizes="16x16">
 </head>
 <body class="text-center">
 <div class="cover-container full-page d-flex w-100 h-100 mx-auto flex-column">
@@ -44,7 +45,7 @@ if (!isset($_SESSION["loggedTeacher"])) {
                         <a class="nav-link active" aria-current="page" href="#">Domov</a>
                     </li>
                     <li class="nav-item me-2">
-                        <a class="nav-link" href="newTest.php" tabindex="-1">Nový test</a>
+                        <a class="nav-link" href="addTest.php" tabindex="-1">Nový test</a>
                     </li>
                     <li class="nav-item me-2">
                         <a class="nav-link" href="allTests.php" tabindex="-1" >Všetky testy</a>
@@ -71,8 +72,7 @@ if (!isset($_SESSION["loggedTeacher"])) {
                     <img src="../img/user%20icon.svg" alt="mdo" width="32" height="32" class="rounded-circle">
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end text-small" aria-labelledby="dropdownUser1">
-                    <li><a class="dropdown-item" href="#">Nastavenia</a></li>
-                    <li><a class="dropdown-item" href="#">Profil</a></li>
+                    <li><a class="dropdown-item" href="profile.php">Profil</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li>
                         <a class="dropdown-item" href="../Controllers/logout.php?logout=1">Odhlásiť sa</a>

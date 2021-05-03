@@ -12,14 +12,12 @@ if (!isset($_SESSION["loggedTeacher"])) {
     header("location: ../index.php");
 }
 
+$stmt = $conn->query("SELECT * FROM `teacher` WHERE ID =". $_SESSION["loggedTeacher"]);
+$teacher = $stmt->fetch(PDO::FETCH_ASSOC);
+$name = $teacher["name"];
+$surname = $teacher["surname"];
+$email = $teacher["email"];
 
-
-$stmt = $conn->query("SELECT * FROM `test` WHERE teacher_ID =". $_SESSION["loggedTeacher"]);
-$all = [];
-while($row = $stmt->fetch(PDO::FETCH_ASSOC))
-{
-    array_push($all,[$row["ID"],$row["title"],$row["duration"],$row["activation"]]);
-}
 
 ?>
 
@@ -28,7 +26,7 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC))
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>All tests</title>
+    <title>Teacher</title>
 
     <!-- Bootstrap core CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
@@ -43,7 +41,7 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC))
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Fourth navbar example">
         <div class="container-fluid">
 
-            <a class="navbar-brand me-5" href="index.php">
+            <a class="navbar-brand me-5" href="#">
                 <img class="ms-5 me-2 mb-1" src="../img/to%20do%20icon.png" alt="" width="30" height="30">
                 <span class="fs-4">Exam</span>
             </a>
@@ -54,13 +52,13 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC))
             <div class="collapse navbar-collapse" id="navbarsExample04">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item me-2">
-                        <a class="nav-link" href="index.php" tabindex="-1" >Domov</a>
+                        <a class="nav-link" href="index.php">Domov</a>
                     </li>
                     <li class="nav-item me-2">
                         <a class="nav-link" href="addTest.php" tabindex="-1">Nový test</a>
                     </li>
                     <li class="nav-item me-2">
-                        <a class="nav-link active" aria-current="page" href="#">Všetky testy</a>
+                        <a class="nav-link" href="allTests.php" tabindex="-1" >Všetky testy</a>
                     </li>
                     <li class="nav-item me-2">
                         <a class="nav-link" href="notifications.php" tabindex="-1" >Upozornenia</a>
@@ -84,7 +82,7 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC))
                     <img src="../img/user%20icon.svg" alt="mdo" width="32" height="32" class="rounded-circle">
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end text-small" aria-labelledby="dropdownUser1">
-                    <li><a class="dropdown-item" href="profile.php">Profil</a></li>
+                    <li><a class="dropdown-item" href="#">Profil</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li>
                         <a class="dropdown-item" href="../Controllers/logout.php?logout=1">Odhlásiť sa</a>
@@ -96,33 +94,13 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC))
     </nav>
 
     <main class="px-3">
-        <h1 class="my-4">Všetky testy</h1>
-        <table class="table table-sm table-primary">
-            <thead>
-                <tr>
-                    <th scope="col">Názov</th>
-                    <th scope="col">Kód testu</th>
-                    <th scope="col">Trvanie testu</th>
-                    <th scope="col" class="text-start">Aktívny</th>
-<!--                    <th scope="col">.</th>-->
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($all as $info){ ?>
-                    <tr>
-                        <td class="test-title"><?php echo $info[1] ?></td>
-                        <td><span class="badge bg-code fs-4">code</span></td>
-                        <td><?php echo $info[2] ?></td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" onchange="switchActive('<?php echo $info[0] ?>')" type="checkbox" id="switch-<?php echo $info[0] ?>" <?php if($info[3] == 1) echo "checked";?>>
-                                <label class="form-check-label" for="switch-<?php echo $info[0] ?>"></label>
-                            </div>
-                        </td>
-                    </tr>
-                <?php } ?>
-            </tbody>
-        </table>
+        <div class="row my-5 p-4">
+            <div class="col-lg-12">
+                <img class="bd-placeholder-img rounded-circle mb-5" src="../img/user%20icon.svg" alt="mdo" width="150" height="150" >
+                <h2><?php echo $name." ". $surname;?></h2>
+                <p class="lead mt-3"><?php echo $email;?></p>
+            </div>
+        </div>
     </main>
 </div>
 
@@ -130,6 +108,4 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC))
 </body>
 <script src="https://code.jquery.com/jquery-3.5.1.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
-
-<script src="../js/javascript.js"></script>
 </html>

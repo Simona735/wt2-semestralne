@@ -45,3 +45,17 @@ body, html, .full-page{
     color: #ff9903;
     text-decoration: underline;
 }
+
+.bg-code {
+    background-color: #dcdcdc !important;
+    color: black;
+    font-weight: 100;
+}
+
+.test-title{
+    font-size: 1.5em;
+}
+
+.alert {
+    margin-bottom: 0;
+}

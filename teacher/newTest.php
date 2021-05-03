@@ -24,6 +24,7 @@ if (!isset($_SESSION["loggedTeacher"])) {
     <!-- Custom styles for this template -->
     <link href="../css/styles.css" rel="stylesheet">
     <link href="../css/primary.css" rel="stylesheet">
+    <link rel="icon" href="../img/to%20do%20icon.png" type="image/png" sizes="16x16">
 </head>
 <body class="text-center">
 <div class="cover-container full-page d-flex w-100 h-100 mx-auto flex-column">
@@ -72,8 +73,7 @@ if (!isset($_SESSION["loggedTeacher"])) {
                     <img src="../img/user%20icon.svg" alt="mdo" width="32" height="32" class="rounded-circle">
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end text-small" aria-labelledby="dropdownUser1">
-                    <li><a class="dropdown-item" href="#">Nastavenia</a></li>
-                    <li><a class="dropdown-item" href="#">Profil</a></li>
+                    <li><a class="dropdown-item" href="profile.php">Profil</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li>
                         <a class="dropdown-item" href="../Controllers/logout.php?logout=1">Odhlásiť sa</a>
@@ -128,107 +128,10 @@ if (!isset($_SESSION["loggedTeacher"])) {
         </div>
         <div class="p-3 bg-light w-100 test-page overflow-auto ">
             <div class="bg-white paper-shadow">
-                <h2 class="py-1">Nový test</h2>
+                <h2 class="py-1"><?php echo $_GET["title"]; ?></h2>
                 <form>
-                    <ol class="list-group list-group-numbered">
-                        <li class="list-group-item d-flex justify-content-between align-items-start" >
-                            <div class="ms-2 me-auto text-start align-items-start">
-                                <div class="fw-bold">
-                                    <label for="floatingTextarea">otázka:</label>
-                                    <textarea class="form-control" placeholder="Otázka" id="floatingTextarea"></textarea>
-                                </div>
-                                <div class="py-2">
-                                    <label for="example2" >odpoveď:</label>
-                                    <input type="text" class="form-control" id="example2" aria-describedby="odpoved">
-                                </div>
-                            </div>
-                            <div>
-                                <a href="#" class="btn-exit">
-                                    <i class="bi bi-x-circle-fill"></i>
-                                </a>
-                            </div>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                            <div class="ms-2 me-auto text-start align-items-start">
-                                <div class="fw-bold">
-                                    <label for="example1" >otázka:</label>
-                                    <input type="text" class="form-control" id="example1" aria-describedby="otazka">
-                                </div>
-                                <ul>
-                                    <li class="p-2">
-                                        <div class="form-group">
-                                            <label for="example1" >možnosť:</label>
-                                            <input type="text" class="form-control " id="example1" aria-describedby="otazka">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheck1">
-                                            <label class="form-check-label d-inline" for="flexCheck1">
-                                                správna
-                                            </label>
-                                        </div>
+                    <ol id="testContent" class="list-group list-group-numbered">
 
-                                    </li>
-                                    <li class="p-2">
-                                        <div class="form-group">
-                                            <label for="example1" >možnosť:</label>
-                                            <input type="text" class="form-control" id="example1" aria-describedby="otazka">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                            <label class="form-check-label" for="flexCheckDefault">
-                                                správna
-                                            </label>
-                                        </div>
-                                    </li>
-                                    <li class="p-2">
-                                        <button type="button" class="btn btn-outline-primary">
-                                            <i class="bi bi-plus-square-dotted me-1"></i>
-                                            pridať možnosť
-                                        </button>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div>
-                                <a href="#" class="btn-exit">
-                                    <i class="bi bi-x-circle-fill"></i>
-                                </a>
-                            </div>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                            <div class="ms-2 me-auto text-start align-items-start">
-                                <div class="fw-bold">
-                                    <label for="example1" >otázka:</label>
-                                    <input type="text" class="form-control" id="example1" aria-describedby="otazka">
-                                </div>
-                                <div class="py-2">
-                                    <div class="row py-2">
-                                        <div class="col">
-                                            <label for="example2" >ľavý:</label>
-                                            <input type="text" class="form-control" id="example2" aria-describedby="odpoved">
-                                        </div>
-                                        <div class="col">
-                                            <label for="example2" >pravý:</label>
-                                            <input type="text" class="form-control" id="example2" aria-describedby="odpoved">
-                                        </div>
-                                    </div>
-                                    <div class="row py-2">
-                                        <div class="col">
-                                            <label for="example2" >ľavý:</label>
-                                            <input type="text" class="form-control" id="example2" aria-describedby="odpoved">
-                                        </div>
-                                        <div class="col">
-                                            <label for="example2" >pravý:</label>
-                                            <input type="text" class="form-control" id="example2" aria-describedby="odpoved">
-                                        </div>
-                                    </div>
-                                    <button type="button" class="btn btn-outline-primary my-2">
-                                        <i class="bi bi-plus-square-dotted me-1"></i>
-                                        pridať pár
-                                    </button>
-                                </div>
-                            </div>
-                            <div>
-                                <a href="#" class="btn-exit">
-                                    <i class="bi bi-x-circle-fill"></i>
-                                </a>
-                            </div>
-                        </li>
                     </ol>
                 </form>
             </div>
@@ -241,6 +144,6 @@ if (!isset($_SESSION["loggedTeacher"])) {
 <script src="https://code.jquery.com/jquery-3.5.1.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 <script src="../js/questionsCreate.js"></script>
-
+<script>var test_ID = <?php echo $_GET["testID"]; ?></script>
 
 </html>
