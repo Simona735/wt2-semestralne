@@ -13,7 +13,7 @@ Link to [page](https://wt132.fei.stuba.sk/exam/).
 - [ ] realizácia otázok s kreslením (zadávanie, zobrazovanie, vkladanie výsledku do test, vyhodnotenie)                              
 - [ ] realizácia otázok s matematickým výrazom (zadávanie, zobrazovanie, vkladanie výsledku do test, vyhodnotenie)                   
 - [ ] ukončenie testu (tlačidlo, čas)                                                                                                
-- [ ] možnosť zadefinovania viacerých testov, ich aktivácia a deaktivácia                                                            
+- [X] možnosť zadefinovania viacerých testov, ich aktivácia a deaktivácia                                                            
 - [ ] info pre učiteľa o zbiehaní testov (kto už ukončil a kto opustil danú stránku)                                                 
 - [ ] export do pdf                                                                                                                  
 - [ ] export do csv                                                                                                                  

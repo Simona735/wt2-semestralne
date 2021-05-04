@@ -32,8 +32,9 @@
 
     const mf = document.getElementById('formula');
 
-    mf.addEventListener('input',(ev) => {
+    document.getElementById('formula').addEventListener('input',(ev) => {
         document.getElementById('latex').value = mf.value;
+        console.log(ev.target.value);
     });
 
     document.getElementById('latex').value = mf.value;

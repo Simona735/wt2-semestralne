@@ -27,22 +27,39 @@ class TestController
         $getQuestions->execute();
         $this->questions = $getQuestions->fetchAll();
         foreach ($this->questions as &$question) {
+            $setPassQuestion = $this->conn->prepare("insert into pass_question(question_ID, pass_test_ID) values (:question_ID, :pass_test_ID)");
+            $setPassQuestion->bindValue("question_ID", $question["ID"]);
+            $setPassQuestion->bindValue("pass_test_ID", $_SESSION["passTestId"]);
+            $setPassQuestion->execute();
+            $passQuestionID = $this->conn->lastInsertId();
             switch ($question["type"]) {
                 case "short_ans":
                     $getShortAns = $this->conn->prepare("select * from short_ans where question_ID = :question_ID");
                     $getShortAns->bindValue("question_ID", $question["ID"]);
                     $getShortAns->setFetchMode(PDO::FETCH_ASSOC);
                     $getShortAns->execute();
-                    while ($row = $getShortAns->fetch())
-                        $question["short_ans"][$row["ID"]] = $row;
+                    while ($row = $getShortAns->fetch()) {
+                        $setAns = $this->conn->prepare("insert into pass_short_ans(pass_question_ID, short_ans_ID) values (:question_ID, :short_ans_ID)");
+                        $setAns->bindValue("question_ID", $passQuestionID);
+                        $setAns->bindValue("short_ans_ID", $row["ID"]);
+                        $setAns->execute();
+                        $row["pass_id"] = $this->conn->lastInsertId();
+                        $question["short_ans"] = $row;
+                    }
                     break;
                 case "more_ans":
                     $getMoreAns = $this->conn->prepare("select * from more_ans where question_ID = :question_ID");
                     $getMoreAns->bindValue("question_ID", $question["ID"]);
                     $getMoreAns->setFetchMode(PDO::FETCH_ASSOC);
                     $getMoreAns->execute();
-                    while ($row = $getMoreAns->fetch())
+                    while ($row = $getMoreAns->fetch()) {
+                        $setAns = $this->conn->prepare("insert into pass_more_ans(pass_question_ID, more_ans_ID) values (:question_ID, :more_ans_ID)");
+                        $setAns->bindValue("question_ID", $passQuestionID);
+                        $setAns->bindValue("more_ans_ID", $row["ID"]);
+                        $setAns->execute();
+                        $row["pass_id"] = $this->conn->lastInsertId();
                         $question["more_ans"][$row["ID"]] = $row;
+                    }
                     break;
                 case "pair_ans":
                     $helper = [];
@@ -51,7 +68,12 @@ class TestController
                     $getPairAns->setFetchMode(PDO::FETCH_ASSOC);
                     $getPairAns->execute();
                     while ($row = $getPairAns->fetch()) {
+                        $setAns = $this->conn->prepare("insert into pass_pair_ans(pass_question_ID, pair_ans_ID) values (:question_ID, :pair_ans_ID)");
+                        $setAns->bindValue("question_ID", $passQuestionID);
+                        $setAns->bindValue("pair_ans_ID", $row["ID"]);
+                        $setAns->execute();
                         array_push($helper, $row["left_part"]);
+                        $row["pass_id"] = $this->conn->lastInsertId();
                         $question["pair_ans"][$row["ID"]] = $row;
                     }
                     shuffle($helper);
@@ -59,6 +81,16 @@ class TestController
                     foreach ($question["pair_ans"] as &$questionPart){
                         $questionPart["left_part"] = $helper[$i++];
                     }
+                    break;
+                case "math_ans":
+                    $setAns = $this->conn->prepare("insert into pass_math_ans(pass_question_ID) values (:question_ID)");
+                    $setAns->bindValue("question_ID", $passQuestionID);
+                    $setAns->execute();
+                    break;
+                case "pics_ans":
+                    $setAns = $this->conn->prepare("insert into pass_pics_ans(pass_question_ID) values (:question_ID)");
+                    $setAns->bindValue("question_ID", $passQuestionID);
+                    $setAns->execute();
                     break;
             }
         }
@@ -77,6 +109,48 @@ class TestController
         }
 
     }
+
+    public function updatePassShortAns($short_ans_ID, $my_ans){
+        $updateQuestion = $this->conn->prepare("update pass_short_ans set my_ans = :my_ans where ID = :short_ans_ID");
+        $updateQuestion->bindValue("my_ans", $my_ans);
+        $updateQuestion->bindValue("short_ans_ID", $short_ans_ID);
+        try {
+            $updateQuestion->execute();
+            return "success";
+        } catch (Exception $e) {
+            $this->returnAlert($e);
+//            echo "Neplatná registrácia";
+        }
+    }
+
+    public function updatePassMoreAns($moreAns_ID, $my_ans){
+        $updateMoreAns = $this->conn->prepare("update pass_more_ans set check_ans = :my_ans where ID = :moreAns_ID");
+        $updateMoreAns->bindValue("my_ans", $my_ans);
+        $updateMoreAns->bindValue("moreAns_ID", $moreAns_ID);
+        try {
+            $updateMoreAns->execute();
+            return "success";
+        } catch (Exception $e) {
+            $this->returnAlert($e);
+//            echo "Neplatná registrácia";
+        }
+    }
+
+    public function updatePassPairAns($pairAns_ID, $left, $right){
+        $updateMoreAns = $this->conn->prepare("update pass_pair_ans set left_part = :left_part, right_part = :right_part where ID = :pairAns_ID");
+        $updateMoreAns->bindValue("left_part", $left);
+        $updateMoreAns->bindValue("right_part", $right);
+        $updateMoreAns->bindValue("pairAns_ID", $pairAns_ID);
+        try {
+            $updateMoreAns->execute();
+            return "success";
+        } catch (Exception $e) {
+            $this->returnAlert($e);
+//            echo "Neplatná registrácia";
+        }
+    }
+
+
 
     function returnAlert($message){
         echo "<div class='alert alert-danger' role='alert'>".

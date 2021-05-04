@@ -145,7 +145,7 @@ function addOption(data){
     return div;
 }
 
-function answerFieldMath(data.question){
+function answerFieldMath(data){
     let mathField = document.createElement("math-field");
     mathField.classList.add("math-style");
     mathField.setAttribute("virtual-keyboard-mode", "onfocus");
