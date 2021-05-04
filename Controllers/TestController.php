@@ -33,24 +33,32 @@ class TestController
                     $getShortAns->bindValue("question_ID", $question["ID"]);
                     $getShortAns->setFetchMode(PDO::FETCH_ASSOC);
                     $getShortAns->execute();
-                    $result = $getShortAns->fetchAll();
-                    $question["short_ans"][$result[0]["ID"]] = $result;
+                    while ($row = $getShortAns->fetch())
+                        $question["short_ans"][$row["ID"]] = $row;
                     break;
                 case "more_ans":
                     $getMoreAns = $this->conn->prepare("select * from more_ans where question_ID = :question_ID");
                     $getMoreAns->bindValue("question_ID", $question["ID"]);
                     $getMoreAns->setFetchMode(PDO::FETCH_ASSOC);
                     $getMoreAns->execute();
-                    $result = $getMoreAns->fetchAll();
-                    $question["more_ans"][$result[0]["ID"]] = $result;
+                    while ($row = $getMoreAns->fetch())
+                        $question["more_ans"][$row["ID"]] = $row;
                     break;
                 case "pair_ans":
+                    $helper = [];
                     $getPairAns = $this->conn->prepare("select * from pair_ans where question_ID = :question_ID");
                     $getPairAns->bindValue("question_ID", $question["ID"]);
                     $getPairAns->setFetchMode(PDO::FETCH_ASSOC);
                     $getPairAns->execute();
-                    $result = $getPairAns->fetchAll();
-                    $question["pair_ans"][$result[0]["ID"]] = $result;
+                    while ($row = $getPairAns->fetch()) {
+                        array_push($helper, $row["left_part"]);
+                        $question["pair_ans"][$row["ID"]] = $row;
+                    }
+                    shuffle($helper);
+                    $i = 0;
+                    foreach ($question["pair_ans"] as &$questionPart){
+                        $questionPart["left_part"] = $helper[$i++];
+                    }
                     break;
             }
         }

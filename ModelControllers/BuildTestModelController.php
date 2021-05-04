@@ -25,6 +25,10 @@ if (isset($_POST["addQuestion"]) and $_POST["addQuestion"]){
             $result["pair_ans_id_2"] = $lastIDSecond;
             echo json_encode($result);
             break;
+        case "pics_ans":
+        case "math_ans":
+            echo json_encode($result);
+            break;
     }
 }
 
@@ -75,4 +79,9 @@ if (isset($_POST["update_QValue"])) {
             echo json_encode($result);
             break;
     }
+}
+
+if (isset($_POST["test_ID"])) {
+    $result = $buildTest->builtTest($_POST["test_ID"]);
+    echo json_encode($result);
 }

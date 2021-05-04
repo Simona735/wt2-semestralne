@@ -185,6 +185,24 @@ class BuildTestController {
 //            echo "Neplatná registrácia";
         }
     }
+
+
+    public function builtTest($test_ID) {
+        while (true) {
+            $six_digit_random_number = mt_rand(100000, 999999);
+            $testCode = $this->conn->prepare("select test_code from test where test_code = :test_code");
+            $testCode->bindValue("test_code", $six_digit_random_number);
+            $testCode->setFetchMode(PDO::FETCH_ASSOC);
+            $testCode->execute();
+            if (!$testCode->fetch()) {
+                $updateCode = $this->conn->prepare("update test set test_code = :test_code where ID = :test_ID");
+                $updateCode->bindValue("test_code", $six_digit_random_number);
+                $updateCode->bindValue("test_ID", $test_ID);
+                $updateCode->execute();
+                return "success->".$six_digit_random_number;
+            }
+        }
+    }
 }
 
 function returnAlert($message){

@@ -51,10 +51,10 @@ if (isset($_POST["title"]) and isset($_POST["duration"])) {
                 <div class="collapse navbar-collapse" id="navbarsExample04">
                     <ul class="navbar-nav me-auto mb-2 mb-md-0">
                         <li class="nav-item me-2">
-                            <a class="nav-link active" aria-current="page" href="#">Domov</a>
+                            <a class="nav-link" href="#">Domov</a>
                         </li>
                         <li class="nav-item me-2">
-                            <a class="nav-link" href="addTest.php" tabindex="-1">Nový test</a>
+                            <a class="nav-link active" aria-current="page" href="addTest.php" tabindex="-1">Nový test</a>
                         </li>
                         <li class="nav-item me-2">
                             <a class="nav-link" href="allTests.php" tabindex="-1" >Všetky testy</a>

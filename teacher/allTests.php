@@ -1,6 +1,22 @@
 <?php
-require_once "../db connection/Database.php";
+require_once "../Controllers/CreateTestController.php";
+$testBuilder = new BuildTestController();
 $conn = (new Database())->getConnection();
+
+// delete no correct close test builder
+$deleteTest = $conn->prepare("select ID from test where test_code = 0");
+$deleteTest->execute();
+while ($row = $deleteTest->fetch(PDO::FETCH_ASSOC)) {
+    $deleteQuestion = $conn->prepare("select ID from question where test_id = :test_id");
+    $deleteQuestion->bindValue("test_id", $row["ID"]);
+    $deleteQuestion->execute();
+    while ($rowq = $deleteQuestion->fetch(PDO::FETCH_ASSOC)) {
+        $testBuilder->deleteQuestion($rowq["ID"]);
+    }
+    $deleteTestWorker = $conn->prepare("delete from test where ID = :test_ID");
+    $deleteTestWorker->bindValue("test_ID", $row["ID"]);
+    $deleteTestWorker->execute();
+}
 
 session_start();
 
@@ -12,13 +28,11 @@ if (!isset($_SESSION["loggedTeacher"])) {
     header("location: ../index.php");
 }
 
-
-
 $stmt = $conn->query("SELECT * FROM `test` WHERE teacher_ID =". $_SESSION["loggedTeacher"]);
 $all = [];
 while($row = $stmt->fetch(PDO::FETCH_ASSOC))
 {
-    array_push($all,[$row["ID"],$row["title"],$row["duration"],$row["activation"]]);
+    array_push($all,[$row["ID"],$row["title"],$row["duration"],$row["activation"], $row["test_code"]]);
 }
 
 ?>
@@ -111,7 +125,7 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC))
                 <?php foreach ($all as $info){ ?>
                     <tr>
                         <td class="test-title"><?php echo $info[1] ?></td>
-                        <td><span class="badge bg-code fs-4">code</span></td>
+                        <td><span class="badge bg-code fs-4"><?php echo $info[4] ?></span></td>
                         <td><?php echo $info[2] ?></td>
                         <td>
                             <div class="form-check form-switch">
@@ -125,7 +139,6 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC))
         </table>
     </main>
 </div>
-
 
 </body>
 <script src="https://code.jquery.com/jquery-3.5.1.js" crossorigin="anonymous"></script>

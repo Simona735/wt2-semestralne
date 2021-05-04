@@ -26,16 +26,27 @@ $(document).ready(function () {
                 data = $.parseJSON(data);
                 createPairAnsQuestion(data.question_id, data.pair_ans_id_1, data.pair_ans_id_2);
                 console.log("pair-question");//  <--   tam ID otazky   (namiesto 65)
-                console.log("multiple-question");
             });
     });
 
     $('#draw-question').click(function () {
-        console.log("draw-question");
+        $.post( "../ModelControllers/BuildTestModelController.php", { addQuestion: true, T_ID: test_ID, Q_Title:"", Q_Type: "pics_ans" })
+            .done(function( data ) {
+                console.log(data);
+                data = $.parseJSON(data);
+                createPicsAnsQuestion(data.question_id);
+                console.log("draw-question");
+            });
     });
 
     $('#math-question').click(function () {
-        console.log("math-question");
+        $.post( "../ModelControllers/BuildTestModelController.php", { addQuestion: true, T_ID: test_ID, Q_Title:"", Q_Type: "math_ans" })
+            .done(function( data ) {
+                console.log(data);
+                data = $.parseJSON(data);
+                createMathAnsQuestion(data.question_id);
+                console.log("math-question");
+            });
     });
 });
 
@@ -320,6 +331,18 @@ function appendEmptyPair(id){
         });
 }
 
+function createPicsAnsQuestion(id){
+    let formBody = $( "#testContent");
+    let element1 = addQuestionTitle(id);
+    formBody.append(createQuestionWrapper(id, element1, '(kresliaca otázka)'));
+}
+
+function createMathAnsQuestion(id){
+    let formBody = $( "#testContent");
+    let element1 = addQuestionTitle(id);
+    formBody.append(createQuestionWrapper(id, element1, '(matematická otázka)'));
+}
+
 function changeInput(element, type){
     switch (type){
         case "question_title":
@@ -368,4 +391,11 @@ function deleteQuestion(id){
         });
 }
 
+function submitTest (id){
+    $.post( "../ModelControllers/BuildTestModelController.php", { test_ID: id})
+        .done(function( data ) {
+            console.log(data);
+            window.location = "allTests.php";
+        });
+}
 

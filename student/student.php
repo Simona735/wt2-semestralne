@@ -2,7 +2,6 @@
 require_once "../Controllers/TestController.php";
 $test = new TestController();
 
-print_r($test->getTest($_SESSION["testID"]));
 session_start();
 if(!isset($_SESSION["loggedStudent"])){
     header("location: index.php");
@@ -69,73 +68,87 @@ if(!isset($_SESSION["loggedStudent"])){
             <h2 class="py-1">Test číslo <?php echo $_SESSION["testID"]; ?></h2>
             <form>
                 <ol id="testContent" class="list-group list-group-numbered">
-                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                        <div class="ms-2 me-auto text-start align-items-start w-100">
-                            <div class="fw-bold">
-                                otázka
-                            </div>
-                            <div class="py-2">
-                                <label for="example2" >odpoveď:</label>
-                                <input type="text" class="form-control" id="example2" aria-describedby="odpoved">
-                            </div>
-                        </div>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                        <div class="ms-2 me-auto text-start align-items-start w-100">
-                            <div class="fw-bold">
-                                otázka
-                            </div>
-                            <div class="py-2">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        Default checkbox
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                                    <label class="form-check-label" for="flexCheckChecked">
-                                        Checked checkbox
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                        <div class="ms-2 me-auto text-start align-items-start w-100">
-                            <div class="fw-bold">
-                                otázka
-                            </div>
-                            <div class="py-2 row">
-                                <div class="col-sm-2">
-                                    <span class="text-decoration-underline">index pravého stĺpca</span>
-                                </div>
-                                <div class="col-sm-5">
-                                    <span class="text-decoration-underline">lavý stĺpec</span>
-                                </div>
-                                <div class="col-sm-1">
-                                    <span class="text-decoration-underline">index</span>
-                                </div>
-                                <div class="col-sm-4">
-                                    <span class="text-decoration-underline">pravý stĺpec</span>
-                                </div>
-                            </div>
-                            <div class="py-2 row">
-                                <div class="col-sm-2">
-                                    <input type="email" class="form-control form-control-sm" id="colFormLabelSm" placeholder="">
-                                </div>
-                                <div class="col-sm-5">
-                                    <label for="colFormLabelSm" class="col-sm-5 col-form-label col-form-label-sm">title1</label>
-                                </div>
-                                <div class="col-sm-1">
-                                    cislo
-                                </div>
-                                <div class="col-sm-4">
-                                    title2
-                                </div>
-                            </div>
-                        </div>
-                    </li>
+                    <?php foreach ($test->getTest($_SESSION["testID"]) as $question){
+                        switch ($question["type"]){
+                            case "short_ans":
+                                ?>
+                                <li class="list-group-item d-flex justify-content-between align-items-start" id="<?php echo $question["ID"];?>">
+                                    <div class="ms-2 me-auto text-start align-items-start w-100">
+                                        <div class="fw-bold">
+                                            <p><?php echo $question["title"];?></p>
+                                        </div>
+                                        <div class="py-2">
+                                            <label for="shortans-<?php echo $question["ID"];?>" >odpoveď:</label>
+                                            <input type="text" class="form-control" id="shortans-<?php echo $question["ID"];?>" aria-describedby="odpoved">
+                                        </div>
+                                    </div>
+                                </li>
+                                <?php
+                                break;
+                            case "more_ans":
+                                ?>
+                                <li class="list-group-item d-flex justify-content-between align-items-start" id="<?php echo $question["ID"];?>">
+                                    <div class="ms-2 me-auto text-start align-items-start w-100">
+                                        <div class="fw-bold">
+                                            <p><?php echo $question["title"];?></p>
+                                        </div>
+                                        <div class="py-2">
+                                            <?php foreach ($question["more_ans"] as $answer){?>
+                                            <div class="form-check" id="<?php echo $answer["ID"];?>">
+                                                <input class="form-check-input" type="checkbox" value="" id="moreans-<?php echo $answer["ID"];?>">
+                                                <label class="form-check-label" for="moreans-<?php echo $answer["ID"];?>">
+                                                    <?php echo $answer["title"];?>
+                                                </label>
+                                            </div>
+                                            <?php };?>
+                                        </div>
+                                    </div>
+                                </li>
+                                <?php
+                                break;
+                            case "pair_ans":
+                                ?>
+                                <li class="list-group-item d-flex justify-content-between align-items-start" id="<?php echo $question["ID"];?>">
+                                    <div class="ms-2 me-auto text-start align-items-start w-100">
+                                        <div class="fw-bold">
+                                            <p><?php echo $question["title"];?></p>
+                                        </div>
+                                        <div class="py-2 row">
+                                            <div class="col-sm-2">
+                                                <span class="text-decoration-underline">index pravého stĺpca</span>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <span class="text-decoration-underline">lavý stĺpec</span>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <span class="text-decoration-underline">index</span>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <span class="text-decoration-underline">pravý stĺpec</span>
+                                            </div>
+                                        </div>
+                                        <?php $i = 0; foreach ($question["pair_ans"] as $answer){ $i++;?>
+                                        <div class="py-2 row" id="<?php echo $answer["ID"];?>">
+                                            <div class="col-sm-2">
+                                                <input type="number" min="1" class="form-control form-control-sm" id="pairans-<?php echo $i;?>" placeholder="">
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <label for="pairans-<?php echo $i;?>" class="col-sm-5 col-form-label col-form-label-sm"><?php echo $answer["left_part"];?></label>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <?php echo $i;?>
+                                            </div>
+                                            <div class="col-sm-4" id="pair-<?php echo $i;?>">
+                                                <?php echo $answer["right_part"];?>
+                                            </div>
+                                        </div>
+                                        <?php }?>
+                                    </div>
+                                </li>
+                                <?php
+                                break;
+                        }
+                    };?>
                 </ol>
             </form>
         </div>
@@ -160,6 +173,7 @@ if(!isset($_SESSION["loggedStudent"])){
 
 
 </body>
+<script src='https://unpkg.com/mathlive/dist/mathlive.min.js'></script>
 <script src="https://code.jquery.com/jquery-3.5.1.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 <script src="../js/buildTest.js"></script>

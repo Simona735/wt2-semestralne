@@ -32,7 +32,7 @@ function buildTest(data){
                 // add
                 break;
             case "math_ans":
-                // add
+                formBody.append(buildMath(data));
                 break;
             default:
             // you fucked up
@@ -60,7 +60,8 @@ function buildPics(data){
 }
 
 function buildMath(data){
-    // will be
+    let answerField = answerFieldMath(data.question);                      // <------ question data
+    return createQuestionWrapper(data.id, data.title, answerField )
 }
 
 function createQuestionWrapper(id, title , answerField){
@@ -142,4 +143,13 @@ function addOption(data){
     div.append(label);
 
     return div;
+}
+
+function answerFieldMath(data.question){
+    let mathField = document.createElement("math-field");
+    mathField.classList.add("math-style");
+    mathField.setAttribute("virtual-keyboard-mode", "onfocus");
+    mathField.setAttribute("id", "mathCheck-" + data.id);
+
+    return mathField;
 }

@@ -123,7 +123,7 @@ if (!isset($_SESSION["loggedTeacher"])) {
                 </li>
             </ul>
             <hr>
-            <button type="button" class="btn btn-success mb-2">Hotovo</button>
+            <button type="button" class="btn btn-success mb-2" onclick="submitTest(<?php echo $_GET["testID"]; ?>)">Hotovo</button>
 
         </div>
         <div class="p-3 bg-light w-100 test-page overflow-auto ">
