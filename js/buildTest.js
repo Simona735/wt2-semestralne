@@ -56,7 +56,7 @@ function buildPair(data){
 }
 
 function buildPics(data){
-    let answerField = answerFieldPics();
+    let answerField = answerFieldDraw(data);
     return createQuestionWrapper(data.id, data.title, answerField)
 }
 
@@ -146,14 +146,15 @@ function addOption(data){
     return div;
 }
 
-function answerFieldPics(){
-    let div = document.createElement("zwibbler")
-    div.setAttribute("z-controller", "mycontroller")
+function answerFieldDraw(data){
+    let zwibbler = document.createElement("zwibbler")
+    zwibbler.setAttribute("z-controller", "mycontroller")
+    zwibbler.setAttribute("id", data.id)
 
     let canvas = document.createElement("div")
     canvas.setAttribute("z-canvas", '')
-    div.append(canvas);
-    return div;
+    zwibbler.append(canvas);
+    return zwibbler;
 }
 
 function answerFieldMath(data){
