@@ -147,8 +147,25 @@ if(!isset($_SESSION["loggedStudent"])){
                                 </li>
                                 <?php
                                 break;
+                            case "pics_ans":
+                                ?>
+                                <script src="https://zwibbler.com/zwibbler-demo.js"></script>
+                                <li class="list-group-item d-flex justify-content-between align-items-start" id="<?php echo $question["ID"];?>">
+                                    <div class="ms-2 me-auto text-start align-items-start w-100">
+                                        <div class="fw-bold">
+                                            <p><?php echo $question["title"];?></p>
+                                        </div>
+                                        <br>
+                                        <zwibbler z-controller="mycontroller">
+<!--                                            <button z-click="ctx.newDocument()">New</button>-->
+<!--                                            <button z-click="mySave()">Save</button>-->
+                                            <div z-canvas></div>
+                                        </zwibbler>
+                                    </div>
+                                </li>
+                            <?php break;
                         }
-                    };?>
+                    }; ?>
                 </ol>
             </form>
         </div>

@@ -1,5 +1,5 @@
 <?php
-require_once "config.php";
+require_once "/home/xprokop/public_html/nieco/draw/db connection/config.php";
 
 class Database {
     private $conn;

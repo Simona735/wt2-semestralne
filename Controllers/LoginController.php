@@ -25,7 +25,7 @@ class LoginController
 
         $insertStudentTest = $this->conn->prepare("insert into student_test(student_id, test_id) values (:student_id, :test_id)");
         $insertStudentTest->bindValue("test_id", $testId);
-        
+
         try {
             $insertStudent->execute();
 
