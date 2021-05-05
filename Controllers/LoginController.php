@@ -23,7 +23,7 @@ class LoginController
         $insertStudent->bindValue("surname", $surname);
         $insertStudent->bindValue("studentID", $studentID);
 
-        $insertStudentTest = $this->conn->prepare("insert into student_test(student_id, test_id) values (:student_id, :test_id)");
+        $insertStudentTest = $this->conn->prepare("insert into pass_test(student_ID, test_ID, tab_focus, status) values (:student_id, :test_id, 1, 1)");
         $insertStudentTest->bindValue("test_id", $testId);
 
         try {
@@ -36,6 +36,7 @@ class LoginController
 
             $_SESSION["loggedStudent"] = true;
             $_SESSION["name"] = $name;
+            $_SESSION["passTestId"] = $this->conn->lastInsertId();
             header("location: student/student.php");
         } catch (Exception $e) {
             returnAlert("Študent už existuje".$e);
