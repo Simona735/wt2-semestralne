@@ -91,6 +91,8 @@ class TestController
                     $setAns = $this->conn->prepare("insert into pass_pics_ans(pass_question_ID) values (:question_ID)");
                     $setAns->bindValue("question_ID", $passQuestionID);
                     $setAns->execute();
+                    $row["pass_id"] = $this->conn->lastInsertId();
+                    $question["draw_ans"] = $row;
                     break;
             }
         }
@@ -147,6 +149,18 @@ class TestController
         } catch (Exception $e) {
             $this->returnAlert($e);
 //            echo "Neplatná registrácia";
+        }
+    }
+
+    public function updateDrawAns($draw_id, $newDraw){
+        $updateDrawAns = $this->conn->prepare("update pass_pics_ans set path = :newDraw where ID = :draw_id");
+        $updateDrawAns->bindValue("newDraw", $newDraw);
+        $updateDrawAns->bindValue("draw_id", $draw_id);
+        try {
+            $updateDrawAns->execute();
+            return "success";
+        }catch (Exception $e){
+            $this->returnAlert($e);
         }
     }
 
