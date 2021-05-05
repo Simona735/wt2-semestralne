@@ -3,8 +3,8 @@
 $location = (@$_SERVER["HTTPS"] == "on") ? "https://" : "http://";
 $location .= $_SERVER["SERVER_NAME"]; //* . $_SERVER["REQUEST_URI"];
 
-if(isset($_POST["passTestID"])){
-    echo "sent";
+if(isset($_GET["data"])){
+    $formData = explode("_", $_GET["data"]);
 }
 
 ?>
@@ -24,29 +24,37 @@ if(isset($_POST["passTestID"])){
 </head>
 <body class="text-center bg-light">
 <div class="container h-100 ">
-    <?php echo $location; ?>
-    <h2 class="pt-5">Klikni nižšie pre naskenovanie obrázka</h2>
-    <form action="<?php $_SERVER["PHP_SELF"] ?>" method="post">
-        <input type="hidden" name="passTestID" value="2">
-        <input type="hidden" name="passQuestion" value="3">
-        <div class="m-5 px-5">
-            <input class="d-none" type="file" accept="image/*" onchange="submit()" id="formFile" capture="environment">
-            <label for="formFile" class="inputLabel px-4">
-                <figure>
-                    <img src="img/scanWork.png" alt="qr" height="70px" width="70px">
-                </figure>
-                <span>Scan file</span>
-            </label>
-        </div>
-    </form>
+    <?php
+        if(isset($_GET["alert"])){
+    ?>
+    <h3 class="pt-5"><?php echo $_GET["alert"]; ?></h3>
+
+    <?php
+        }else{
+    ?>
+        <h2 class="pt-5">Klikni nižšie pre naskenovanie obrázka</h2>
+        <form action="ModelControllers/TestModelController.php" method="post" id="imageData" enctype="multipart/form-data">
+            <input type="hidden" id="questionType" name="questionType" value="<?php echo $formData[0] ?? ''; ?>Ans">
+            <input type="hidden" id="passTestID" name="passTestID" value="<?php echo $formData[1] ?? ''; ?>">
+            <div class="m-5 px-5">
+                <input class="d-none" type="file" accept="image/*" onchange="submit()" id="formFile" name="scannedImage" capture="environment">
+                <label for="formFile" class="inputLabel px-4">
+                    <figure>
+                        <img src="img/scanWork.png" alt="qr" height="70px" width="70px">
+                    </figure>
+                    <span>Scan file</span>
+                </label>
+            </div>
+        </form>
+    <?php
+    }
+    ?>
 </div>
 </body>
-
 <script src="https://code.jquery.com/jquery-3.5.1.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
         crossorigin="anonymous"></script>
 <script src="js/javascript.js"></script>
-
 </html>
 

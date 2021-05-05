@@ -86,11 +86,13 @@ class TestController
                     $setAns = $this->conn->prepare("insert into pass_math_ans(pass_question_ID) values (:question_ID)");
                     $setAns->bindValue("question_ID", $passQuestionID);
                     $setAns->execute();
+                    $question["math_ans"]["pass_id"] = $this->conn->lastInsertId();
                     break;
                 case "pics_ans":
                     $setAns = $this->conn->prepare("insert into pass_pics_ans(pass_question_ID) values (:question_ID)");
                     $setAns->bindValue("question_ID", $passQuestionID);
                     $setAns->execute();
+                    $question["pics_ans"]["pass_id"] = $this->conn->lastInsertId();
                     break;
             }
         }
@@ -144,6 +146,32 @@ class TestController
         try {
             $updateMoreAns->execute();
             return "success";
+        } catch (Exception $e) {
+            $this->returnAlert($e);
+//            echo "Neplatná registrácia";
+        }
+    }
+
+    public function setPassMathAns($ans_ID, $path){
+        $updateQuestion = $this->conn->prepare("update pass_math_ans set path = :path where ID = :ans_ID");
+        $updateQuestion->bindValue("path", $path);
+        $updateQuestion->bindValue("ans_ID", $ans_ID);
+        try {
+            $updateQuestion->execute();
+            return "Uploaded";
+        } catch (Exception $e) {
+            $this->returnAlert($e);
+//            echo "Neplatná registrácia";
+        }
+    }
+
+    public function setPassPicsAns($ans_ID, $path){
+        $updateQuestion = $this->conn->prepare("update pass_pics_ans set path = :path where ID = :ans_ID");
+        $updateQuestion->bindValue("path", $path);
+        $updateQuestion->bindValue("ans_ID", $ans_ID);
+        try {
+            $updateQuestion->execute();
+            return "Uploaded";
         } catch (Exception $e) {
             $this->returnAlert($e);
 //            echo "Neplatná registrácia";

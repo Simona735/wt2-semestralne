@@ -30,3 +30,37 @@ if (isset($_POST["update_AValue"])){
             break;
     }
 }
+
+
+if(isset($_POST["passTestID"]) && isset($_POST["questionType"])){
+    $target_dir = "../img/scannedAnswers/";
+    $target_file = $target_dir . basename($_FILES["scannedImage"]["name"]);
+    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+    // Check file size
+    if ($_FILES["scannedImage"]["error"] != 0) {
+        header("location: ../scanDoc.php?alert=PleaseTryAgain");
+    }
+
+    // Check if file already exists
+    if (file_exists($target_file)) {
+        unlink($target_file);
+    }
+
+    // Check file size
+    if ($_FILES["scannedImage"]["size"] > 8000000) {
+        header("location: ../scanDoc.php?alert=TooLarge");
+    }
+
+    // if everything is ok, try to upload file
+    if (move_uploaded_file($_FILES["scannedImage"]["tmp_name"], $target_dir. $_POST["questionType"] . '_' . $_POST["passTestID"] . "." . $imageFileType )) {
+        if($_POST["questionType"] == "math"){
+            $result = $test->setPassMathAns($_POST["passTestID"], $_POST["questionType"] . '_' . $_POST["passTestID"] . "." . $imageFileType);
+        }else{
+            $result = $test->setPassPicsAns($_POST["passTestID"], $_POST["questionType"] . '_' . $_POST["passTestID"] . "." . $imageFileType);
+        }
+        header("location: ../scanDoc.php?alert=".$result);
+    } else {
+        header("location: ../scanDoc.php?alert=Error");
+    }
+}

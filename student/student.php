@@ -162,7 +162,7 @@ $location .= $_SERVER["SERVER_NAME"];// . $_SERVER["REQUEST_URI"];
                                         </div>
                                     </div>
                                     <div class="align-items-start d-flex">
-                                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=<?php echo $location;?>/exam/scanDoc.php" alt="qr" height="120px" width="120px">
+                                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=<?php echo $location;?>/exam/scanDoc.php?data=math_<?php echo $question["math_ans"]["pass_id"];?>" alt="qr" height="120px" width="120px">
                                         <i data-bs-toggle="tooltip" data-bs-placement="left" title="Pre pridanie dokumentu, naskenuj QR kód" class="tooltipIcon bi bi-info-circle ms-3"></i>
                                     </div>
                                 </li>
