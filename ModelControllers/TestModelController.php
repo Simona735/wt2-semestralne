@@ -27,6 +27,8 @@ if (isset($_POST["update_AValue"])){
         case "picsAns":
             break;
         case "drawAns":
+            $result = $test->updateDrawAns($_POST["DA_ID"], $_POST["DA_ans"]);
+            echo json_encode($result);
             break;
     }
 }
