@@ -43,13 +43,10 @@ if (!isset($_SESSION["loggedTeacher"])) {
             <div class="collapse navbar-collapse" id="navbarsExample04">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item me-2">
-                        <a class="nav-link" href="index.php" tabindex="-1">Domov</a>
+                        <a class="nav-link" href="index.php" tabindex="-1">Všetky testy</a>
                     </li>
                     <li class="nav-item me-2">
                         <a class="nav-link active" aria-current="page" href="#">Nový test</a>
-                    </li>
-                    <li class="nav-item me-2">
-                        <a class="nav-link" href="allTests.php" tabindex="-1">Všetky testy</a>
                     </li>
                     <li class="nav-item me-2">
                         <a class="nav-link" href="notifications.php" tabindex="-1">Upozornenia</a>

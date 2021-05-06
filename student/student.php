@@ -235,17 +235,10 @@ $location .= $_SERVER["SERVER_NAME"];// . $_SERVER["REQUEST_URI"];
 </script>
 <script>
         document.addEventListener("visibilitychange", function() {
-            console.log(document.hidden );
             $.ajax({
                 url: "../ModelControllers/TestModelController.php",
                 type: "post",
-                data: {tabFocus: document.hidden?"0":"1", pass_test: <?php echo $_SESSION["passTestId"] ?>},
-                success: function (result){
-                    console.log(result);
-                },
-                failure: function (){
-                    console.log("bad");
-                }
+                data: {tabFocus: document.hidden?"0":"1", pass_test: <?php echo $_SESSION["passTestId"] ?>}
             });
         }, false);
 
