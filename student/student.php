@@ -167,6 +167,10 @@ $location .= $_SERVER["SERVER_NAME"];// . $_SERVER["REQUEST_URI"];
                                         </div>
                                         <div class="py-2">
                                             <math-field id="mathans-<?php echo $question["math_ans"]["pass_id"];?>" class="math-style" virtual-keyboard-mode="onfocus"></math-field>
+                                            <button type="button" class="btn btn-outline-danger d-none" onclick="deleteScannedImg('math','<?php echo $question["math_ans"]["pass_id"];?>')" id="mathBtn-<?php echo $question["math_ans"]["pass_id"];?>">
+                                                <i class="bi bi-x"></i>
+                                                Vymaž naskenovaný obrázok
+                                            </button>
                                         </div>
                                     </div>
                                     <div class="align-items-start d-flex">
@@ -174,6 +178,22 @@ $location .= $_SERVER["SERVER_NAME"];// . $_SERVER["REQUEST_URI"];
                                         <i data-bs-toggle="tooltip" data-bs-placement="left" title="Pre pridanie dokumentu, naskenuj QR kód" class="tooltipIcon bi bi-info-circle ms-3"></i>
                                     </div>
                                 </li>
+                                <script>
+                                    setInterval(function() {
+                                        $.ajax({
+                                            url: "../ModelControllers/TestModelController.php",
+                                            type: "post",
+                                            data: {imageType: "math", passId: <?php echo $question["math_ans"]["pass_id"] ?>},
+                                            success: function (result){
+                                                if (result !== '"null"'){
+                                                    document.getElementById("mathans-<?php echo $question["math_ans"]["pass_id"];?>").value = '';
+                                                    document.getElementById("mathans-<?php echo $question["math_ans"]["pass_id"];?>").style.display = "none";
+                                                    document.getElementById("mathBtn-<?php echo $question["math_ans"]["pass_id"];?>").classList.remove("d-none");
+                                                }
+                                            }
+                                        });
+                                    }, 3000);
+                                </script>
                                 <?php
                                 break;
                             case "pics_ans":
@@ -184,9 +204,13 @@ $location .= $_SERVER["SERVER_NAME"];// . $_SERVER["REQUEST_URI"];
                                             <p><?php echo $question["title"];?></p>
                                         </div>
                                         <div class="py-2">
-                                            <zwibbler z-controller="mycontroller" showCopyPaste="false" id="<?php echo $question["pics_ans"]["pass_id"];?>">
+                                            <zwibbler z-controller="mycontroller" showCopyPaste="false" id="picsans-<?php echo $question["pics_ans"]["pass_id"];?>">
                                                 <div z-canvas></div>
                                             </zwibbler>
+                                            <button type="button" class="btn btn-outline-danger d-none" onclick="deleteScannedImg('pics','<?php echo $question["pics_ans"]["pass_id"];?>')" id="picsBtn-<?php echo $question["pics_ans"]["pass_id"];?>">
+                                                <i class="bi bi-x"></i>
+                                                Vymaž naskenovaný obrázok
+                                            </button>
                                         </div>
                                     </div>
                                     <div class="align-items-start d-flex">
@@ -194,6 +218,21 @@ $location .= $_SERVER["SERVER_NAME"];// . $_SERVER["REQUEST_URI"];
                                         <i data-bs-toggle="tooltip" data-bs-placement="left" title="Pre pridanie dokumentu, naskenuj QR kód" class="tooltipIcon bi bi-info-circle ms-3"></i>
                                     </div>
                                 </li>
+                            <script>
+                                setInterval(function() {
+                                    $.ajax({
+                                        url: "../ModelControllers/TestModelController.php",
+                                        type: "post",
+                                        data: {imageType: "pics", passId: <?php echo $question["pics_ans"]["pass_id"] ?>},
+                                        success: function (result){
+                                            if (result !== '"null"'){
+                                                document.getElementById("picsans-<?php echo $question["pics_ans"]["pass_id"];?>").style.display = "none";
+                                                document.getElementById("picsBtn-<?php echo $question["pics_ans"]["pass_id"];?>").classList.remove("d-none");
+                                            }
+                                        }
+                                    });
+                                }, 3000);
+                            </script>
                                 <?php break;
                         }
                     }; ?>
@@ -234,14 +273,30 @@ $location .= $_SERVER["SERVER_NAME"];// . $_SERVER["REQUEST_URI"];
     })
 </script>
 <script>
-        document.addEventListener("visibilitychange", function() {
-            $.ajax({
-                url: "../ModelControllers/TestModelController.php",
-                type: "post",
-                data: {tabFocus: document.hidden?"0":"1", pass_test: <?php echo $_SESSION["passTestId"] ?>}
-            });
-        }, false);
+    function insertAfter(referenceNode, newNode) {
+        referenceNode.parentNode.append(newNode);
+    }
 
+    function deleteScannedImg(type, passId){
+        $.ajax({
+            url: "../ModelControllers/TestModelController.php",
+            type: "post",
+            data: {deletePic: passId, picType: type},
+            success: function (){
+                document.getElementById(type+"ans-"+passId).style.display = "block";
+                document.getElementById(type+"Btn-"+passId).classList.add("d-none");
+            }
+
+        });
+    }
+
+    document.addEventListener("visibilitychange", function() {
+        $.ajax({
+            url: "../ModelControllers/TestModelController.php",
+            type: "post",
+            data: {tabFocus: document.hidden?"0":"1", pass_test: <?php echo $_SESSION["passTestId"] ?>}
+        });
+    }, false);
 
     setInterval(function() {
         $.get("../ModelControllers/TestModelController.php",
@@ -256,3 +311,5 @@ $location .= $_SERVER["SERVER_NAME"];// . $_SERVER["REQUEST_URI"];
     }, 1000);
 </script>
 </html>
+
+

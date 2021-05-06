@@ -92,3 +92,33 @@ if(isset($_POST["tabFocus"]) && isset($_POST["pass_test"])){
     $result = $test->setFocus($_POST["pass_test"], $_POST["tabFocus"]);
     echo json_encode($result);
 }
+
+if(isset($_POST["imageType"]) && isset($_POST["passId"])){
+    $images = glob("../img/scannedAnswers/".$_POST["imageType"].'Ans_'.$_POST["passId"].".*");
+    if(count($images) == 1){
+        if($_POST["imageType"] == "math"){
+            $result = $test->setPassMathAns($_POST["passId"], $images[0]);
+        }else{
+            $result = $test->setPassPicsAns($_POST["passId"], $images[0]);
+        }
+        echo json_encode(basename($images[0]));
+    }else{
+        echo json_encode("null");
+    }
+}
+
+if(isset($_POST["deletePic"]) && isset($_POST["picType"])){
+    if($_POST["picType"] == "math"){
+        $result = $test->setPassMathAns($_POST["passId"], null);
+    }else{
+        $result = $test->setPassPicsAns($_POST["passId"], null);
+    }
+    $images = glob("../img/scannedAnswers/".$_POST["picType"].'Ans_'.$_POST["deletePic"].".*");
+
+    if(count($images) == 1){
+        unlink($images[0]);
+        echo json_encode("success");
+    }else{
+        echo json_encode("empty");
+    }
+}

@@ -133,22 +133,26 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC))
                             </div>
                         </td>
                         <td class="fs-5 text-start">
-                            <button type="button" class="btn btn-sm btn-primary">
+                            <a type="button" class="btn btn-sm btn-primary" href="testState.php?test=<?php echo $info[0] ?>">
                                 <i class="bi bi-eye"></i>
                                 Sleduj stav
-                            </button>
+                            </a>
                         </td>
                         <td class="fs-5 text-start">
-                            <button type="button" class="btn btn-sm btn-primary">
+                            <a type="button" class="btn btn-sm btn-primary <?php if($info[3] == 1) echo "disabled";?>" id="evaluate-<?php echo $info[0] ?>">
                                 <i class="bi bi-pen"></i>
                                 Oprav test
-                            </button>
+                            </a>
                         </td>
                         <td class="fs-5 text-start">
-                            <button type="button" class="btn btn-sm btn-primary">
+                            <a type="button" class="btn btn-sm btn-primary <?php if($info[3] == 1) echo "disabled";?>" id="export-<?php echo $info[0] ?>">
                                 <i class="bi bi-save"></i>
-                                Export výsledkov
-                            </button>
+                                PDF
+                            </a>
+                            <a type="button" class="btn btn-sm btn-primary <?php if($info[3] == 1) echo "disabled";?>" id="export-<?php echo $info[0] ?>">
+                                <i class="bi bi-save"></i>
+                                CSV
+                            </a>
                         </td>
                     </tr>
                 <?php } ?>

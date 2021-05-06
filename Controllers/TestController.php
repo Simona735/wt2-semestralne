@@ -161,7 +161,6 @@ class TestController
             return "Uploaded";
         } catch (Exception $e) {
             $this->returnAlert($e);
-//            echo "Neplatná registrácia";
         }
     }
 
@@ -175,7 +174,6 @@ class TestController
             return "Uploaded";
         } catch (Exception $e) {
             $this->returnAlert($e);
-//            echo "Neplatná registrácia";
         }
     }
 

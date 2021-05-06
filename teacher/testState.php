@@ -1,4 +1,22 @@
 <?php
+require_once "../Controllers/CreateTestController.php";
+$testBuilder = new BuildTestController();
+$conn = (new Database())->getConnection();
+
+// delete no correct close test builder
+$deleteTest = $conn->prepare("select ID from test where test_code = 0");
+$deleteTest->execute();
+while ($row = $deleteTest->fetch(PDO::FETCH_ASSOC)) {
+    $deleteQuestion = $conn->prepare("select ID from question where test_id = :test_id");
+    $deleteQuestion->bindValue("test_id", $row["ID"]);
+    $deleteQuestion->execute();
+    while ($rowq = $deleteQuestion->fetch(PDO::FETCH_ASSOC)) {
+        $testBuilder->deleteQuestion($rowq["ID"]);
+    }
+    $deleteTestWorker = $conn->prepare("delete from test where ID = :test_ID");
+    $deleteTestWorker->bindValue("test_ID", $row["ID"]);
+    $deleteTestWorker->execute();
+}
 session_start();
 
 if(isset($_COOKIE["remember"])){
@@ -9,6 +27,13 @@ if (!isset($_SESSION["loggedTeacher"])) {
     header("location: ../index.php");
 }
 
+$stmt = $conn->query("SELECT * FROM `test` WHERE teacher_ID =". $_SESSION["loggedTeacher"]);
+$all = [];
+while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+{
+    array_push($all,[$row["ID"],$row["title"],$row["duration"],$row["activation"], $row["test_code"]]);
+}
+
 ?>
 
 <!doctype html>
@@ -16,11 +41,11 @@ if (!isset($_SESSION["loggedTeacher"])) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Points</title>
+    <title>All tests</title>
 
     <!-- Bootstrap core CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
     <!-- Custom styles for this template -->
     <link href="../css/styles.css" rel="stylesheet">
     <link href="../css/primary.css" rel="stylesheet">
@@ -42,7 +67,7 @@ if (!isset($_SESSION["loggedTeacher"])) {
             <div class="collapse navbar-collapse" id="navbarsExample04">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item me-2">
-                        <a class="nav-link" href="index.php" tabindex="-1">Všetky testy</a>
+                        <a class="nav-link" href="index.php" tabindex="-1" >Všetky testy</a>
                     </li>
                     <li class="nav-item me-2">
                         <a class="nav-link" href="addTest.php" tabindex="-1">Nový test</a>
@@ -51,7 +76,7 @@ if (!isset($_SESSION["loggedTeacher"])) {
                         <a class="nav-link" href="notifications.php" tabindex="-1" >Upozornenia</a>
                     </li>
                     <li class="nav-item me-2">
-                        <a class="nav-link active" href="#" aria-current="page" >Bodovanie</a>
+                        <a class="nav-link" href="points.php" tabindex="-1" >Bodovanie</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false">Prehľad</a>
@@ -81,60 +106,60 @@ if (!isset($_SESSION["loggedTeacher"])) {
     </nav>
 
     <main class="px-3">
-        <h1 class="my-4">Bodovanie</h1>
-        <div class="card-body text-start mb-4">
-            <p class="card-text">V našej Online Exams aplikácii je možné vytvoriť rôzne testy, kde sa bude nachádzať 5 druhov otázok.
-                Otázky budú môcť byť nasledovné:
-            <ol>
-                <li>Otázky s otvorenou krátkou odpoveďou</li>
-                <li>Otázky s výberom správnej odpovede</li>
-                <li>Párovanie správnych odpovedí</li>
-                <li>Odpoveď v podobe obrázku</li>
-                <li>Odpoveď napísaním matematického výrazu</li>
-            </ol>
-            Všetky správne odpovede budú hodnotené 1b, bez rozdielu otázky. V prípade, že študent odpovie zle, záporné body sa udeľovať nebudú.
-            </p>
-            <h6 class="card-title text-primary">Otázky s otvorenou krátkou odpoveďou</h6>
-            <p class="card-text">Body za správnosť týchto odpovedí bude automaticky priraďovať aplikácia,
-                v prípade ak by učiteľ s hodntením aplikácie nesúhlasil alebo ak by aplikácia zle vyhodnotila nejakú
-                odpoveď, tak učiteľ bude môcť túto otázku prebodovať. Za správnu odpoveď sa udelí študentovi 1b, samozreje
-                toto môže ovplyvniť aj učiteľ.
-            </p>
-            <h6 class="card-title text-primary">Otázky s výberom správnej odpovede</h6>
-            <p class="card-text"> Pri otázkach s výberom odpovede, bude správnosť hodnotiť aplikácia. Odpovede sa budú
-                zaznačovať do check boxov, takže bude možné zvoliť viac odpovedí, ktoré bude hodnotiť aplikácia.
-                Za správne zakliknutie všetkych správych odpovedí sa udelí študentovi 1b.
-            </p>
-            <h6 class="card-title text-primary">Párovanie správnych odpovedí</h6>
-            <p class="card-text"> Pri prárovaní správnych odpovedí bude taktiež hodnotiť pravdivosť aplikácia. Za úlohu bude
-                mať študent spojiť otázky so správnou odpovedou. Pokiaľ sa budú hodnoty otázok rovnať hodnotám
-                odpovedí, tak aplikácia vyhodnotí odpoveď ako správnu a priradí patričné hodnotenie.
-                Študentovi sa udelí bod za správne spárovanie otázky s odpoveďou.
-            </p>
-            <h6 class="card-title text-primary">Odpoveď v podobe obrázku</h6>
-            <p class="card-text"> Pri týchto otázkach bude hodnotiť správnosť odpovede len učiteľ. Pri
-                teste sa zobrazí "plátno" spolu s lištou kde si študent bude mať na výbar pomocky s ktorými bude
-                kresliť. Tento obrázoksa uloží bude následne ohodnotený učiteľom. V tomto prípade bod udelí len učiteľ.
-            </p>
-            <h6 class="card-title text-primary">Odpoveď napísaním matematického výrazu</h6>
-            <p class="card-text"> V tomto prípade bude hodnotiť správnosť odpovede učiteľ. Ak vyhodnotí odpoveď za správnu
-                študent dostane 1 bod.
-            </p>
-            <h3>Kedy môže učteľ opraviť testy?</h3>
-            <p class="card-text"> Test na opravu sa učiteľovi sprístupní ak budú splnenené dve hlavné podmienky:
-            </p>
-            <ol>
-                <li>Prístunosť testu pre študentov musí byť vypnutá.</li>
-                <li>Každý študent, ktorý začal písať test ho musel aj ukončiť.</li>
-            </ol>
-            <!-- <img src="" alt="">
-             <img src="" alt=""> -->
+        <h1 class="my-4">Test [kod/nazov]</h1>
+        <div class="container">
+            <table class="table table-sm table-primary">
+                <thead>
+                <tr>
+                    <th scope="col" class="text-start">ID</th>
+                    <th scope="col" class="text-start">Študent</th>
+                    <th scope="col" class="text-start">Stav</th>
+                    <th scope="col" class="text-start">Aktívny tab</th>
+                    <th scope="col" class="text-start">Opraviť</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($all as $info){ ?>
+                    <tr>
+                        <td class="test-title text-start"><?php echo $info[1] ?></td>
+                        <td class="text-start" ><span class="badge bg-code fs-5"><?php echo $info[4] ?></span></td>
+                        <td class="fs-5 text-start"><?php echo $info[2] ?></td>
+                        <td class="fs-5">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" onchange="switchActive('<?php echo $info[0] ?>')" type="checkbox" id="switch-<?php echo $info[0] ?>" <?php if($info[3] == 1) echo "checked";?>>
+                                <label class="form-check-label" for="switch-<?php echo $info[0] ?>"></label>
+                            </div>
+                        </td>
+                        <td class="fs-5 text-start">
+                            <button type="button" class="btn btn-sm btn-primary">
+                                <i class="bi bi-eye"></i>
+                                Sleduj stav
+                            </button>
+                        </td>
+                        <td class="fs-5 text-start">
+                            <button type="button" class="btn btn-sm btn-primary" id="evaluate-<?php echo $info[0] ?>" <?php if($info[3] == 1) echo "disabled";?>>
+                                <i class="bi bi-pen"></i>
+                                Oprav test
+                            </button>
+                        </td>
+                        <td class="fs-5 text-start">
+                            <button type="button" class="btn btn-sm btn-primary" id="export-<?php echo $info[0] ?>" <?php if($info[3] == 1) echo "disabled";?>>
+                                <i class="bi bi-save"></i>
+                                Export výsledkov
+                            </button>
+                        </td>
+                    </tr>
+                <?php } ?>
+                </tbody>
+            </table>
         </div>
+
     </main>
 </div>
-
 
 </body>
 <script src="https://code.jquery.com/jquery-3.5.1.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+
+<script src="../js/javascript.js"></script>
 </html>

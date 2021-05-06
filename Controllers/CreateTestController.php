@@ -203,6 +203,12 @@ class BuildTestController {
             }
         }
     }
+
+//    public function getStudentsPerTest($test_ID) {
+//        $testCode = $this->conn->prepare("SELECT concat(student.name, ' ', student.surname) as name, pass_test.tab_focus as focus, pass_test.status as status FROM pass_test JOIN student ON pass_test.student_ID = student.id WHERE pass_test.test_ID=32");
+//        $testCode->setFetchMode(PDO::FETCH_ASSOC);
+//        $testCode->execute();
+//    }
 }
 
 function returnAlert($message){
