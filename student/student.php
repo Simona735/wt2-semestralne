@@ -47,6 +47,7 @@ $info = json_encode($b);
     <link href="../css/styles.css" rel="stylesheet">
     <link href="../css/primary.css" rel="stylesheet">
     <link rel="icon" href="../img/to%20do%20icon.png" type="image/png" sizes="16x16">
+    <script src="../js/drawing.js"></script>
 </head>
 <body class="text-center">
 <div class="d-flex flex-row h-100" >
@@ -174,6 +175,21 @@ $info = json_encode($b);
                                 </li>
                                 <?php
                                 break;
+
+                            case "pics_ans":
+                                ?>
+                                <li class="list-group-item d-flex justify-content-between align-items-start" id="<?php echo $question["ID"];?>">
+                                    <div class="ms-2 me-auto text-start align-items-start w-100">
+                                        <div class="fw-bold">
+                                            <p><?php echo $question["title"];?></p>
+                                        </div>
+                                        <br>
+                                        <zwibbler z-controller="mycontroller" id="<?php echo $question["draw_ans"]["pass_id"];?>">
+                                            <div z-canvas></div>
+                                        </zwibbler>
+                                    </div>
+                                </li>
+                            <?php break;
                             case "math_ans":
                                 ?>
                                 <li class="list-group-item d-flex justify-content-between align-items-start" id="<?php echo $question["ID"];?>">
@@ -193,7 +209,7 @@ $info = json_encode($b);
                                 <?php
                                 break;
                         }
-                    };?>
+                    }; ?>
                 </ol>
             </form>
         </div>
@@ -221,6 +237,7 @@ $info = json_encode($b);
 <script src='https://unpkg.com/mathlive/dist/mathlive.min.js'></script>
 <script src="https://code.jquery.com/jquery-3.5.1.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+<script src="https://zwibbler.com/zwibbler-demo.js"></script>
 <script src="../js/fillTest.js"></script>
 <script>
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))

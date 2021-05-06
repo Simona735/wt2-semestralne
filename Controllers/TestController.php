@@ -165,6 +165,8 @@ class TestController
         }
     }
 
+    //check for duplicity
+
     public function setPassPicsAns($ans_ID, $path){
         $updateQuestion = $this->conn->prepare("update pass_pics_ans set path = :path where ID = :ans_ID");
         $updateQuestion->bindValue("path", $path);
@@ -175,6 +177,18 @@ class TestController
         } catch (Exception $e) {
             $this->returnAlert($e);
 //            echo "Neplatná registrácia";
+        }
+    }
+
+    public function updateDrawAns($draw_id, $newDraw){
+        $updateDrawAns = $this->conn->prepare("update pass_pics_ans set path = :newDraw where ID = :draw_id");
+        $updateDrawAns->bindValue("newDraw", $newDraw);
+        $updateDrawAns->bindValue("draw_id", $draw_id);
+        try {
+            $updateDrawAns->execute();
+            return "success";
+        }catch (Exception $e){
+            $this->returnAlert($e);
         }
     }
 

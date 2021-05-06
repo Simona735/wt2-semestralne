@@ -1,4 +1,4 @@
-function changeInput(element, type, left_pair = null){
+function changeInput(element, type, left_pair = null, imageToSave = null){
     switch (type){
         case "shortAns":
             console.log($(element));
@@ -31,7 +31,7 @@ function changeInput(element, type, left_pair = null){
             break;
         case "drawAns":
             console.log($(element));
-            $.post( "../ModelControllers/TestModelController.php", { update_AValue: "drawAns", DA_ID: $(element).attr('id'), DA_ans:$(element).val()})
+            $.post( "../ModelControllers/TestModelController.php", { update_AValue: "drawAns", DA_ID: $(element).attr('id'), DA_ans: imageToSave})
                 .done(function( data ) {
                     console.log(data);
                 });
