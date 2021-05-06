@@ -20,18 +20,15 @@ function toggleSignUp(e){
 function switchActive(id){
     var active = 0;
     // $(':input[type="submit"]').prop('disabled', true);7
-    var evaluateButton = document.getElementById("evaluate-"+ id);//.disabled = true;
     var exportPDF = document.getElementById("exportPDF-"+ id);//.disabled = true;
     var exportCSV = document.getElementById("exportCSV-"+ id);//.disabled = true;
 
     if($("#switch-"+ id).prop("checked")){
         active = 1;
-        evaluateButton.classList.add("disabled");
         exportPDF.classList.add("disabled");
         exportCSV.classList.add("disabled");
     }else{
         active = 0;
-        evaluateButton.classList.remove("disabled");
         exportPDF.classList.remove("disabled");
         exportCSV.classList.remove("disabled");
     }

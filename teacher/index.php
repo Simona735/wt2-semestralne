@@ -108,7 +108,6 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC))
                     <th scope="col" class="text-start">Trvanie testu</th>
                     <th scope="col" class="text-start">Aktívny</th>
                     <th scope="col" class="text-start">Stav</th>
-                    <th scope="col" class="text-start">Opraviť</th>
                     <th scope="col" class="text-start">Export</th>
                 </tr>
                 </thead>
@@ -128,12 +127,6 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC))
                             <a type="button" class="btn btn-sm btn-primary" href="testState.php?test=<?php echo $info[0] ?>">
                                 <i class="bi bi-eye"></i>
                                 Sleduj stav
-                            </a>
-                        </td>
-                        <td class="fs-5 text-start">
-                            <a type="button" class="btn btn-sm btn-primary <?php if($info[3] == 1) echo "disabled";?>" id="evaluate-<?php echo $info[0] ?>">
-                                <i class="bi bi-pen"></i>
-                                Oprav test
                             </a>
                         </td>
                         <td class="fs-5 text-start">
