@@ -22,19 +22,20 @@ function changeInput(element, type, left_pair = null, imageToSave = null){
                     console.log(data);
                 });
             break;
+        case "mathAns":
+            console.log($(element));
+            $.post( "../ModelControllers/TestModelController.php", { update_AValue: "mathAns", MT_ID: $(element).attr('id'), MT_ans: $(element).val()})
+                .done(function( data ) {
+                    console.log(data);
+                });
+            break;
         case "picsAns":
             console.log($(element));
-            $.post( "../ModelControllers/TestModelController.php", { update_AValue: "picsAns", CA_ID: $(element).attr('id'), CA_ans:$(element).val()})
+            $.post( "../ModelControllers/TestModelController.php", { update_AValue: "picsAns", CA_ID: $(element).attr('id'), CA_ans: imageToSave})
                 .done(function( data ) {
                     console.log(data);
                 });
             break;
-        case "drawAns":
-            console.log($(element));
-            $.post( "../ModelControllers/TestModelController.php", { update_AValue: "drawAns", DA_ID: $(element).attr('id'), DA_ans: imageToSave})
-                .done(function( data ) {
-                    console.log(data);
-                });
-            break;
+
     }
 }

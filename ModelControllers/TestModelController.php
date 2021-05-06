@@ -2,6 +2,8 @@
 require_once "../Controllers/TestController.php";
 $test = new TestController();
 
+date_default_timezone_set("Europe/Bratislava");
+
 
 if(isset($_POST["activeState"]) && isset($_POST["testId"])){
     $test->setActivation($_POST["activeState"], $_POST["testId"]);
@@ -65,4 +67,23 @@ if(isset($_POST["passTestID"]) && isset($_POST["questionType"])){
     } else {
         header("location: ../scanDoc.php?alert=Error");
     }
+}
+
+if(isset($_GET["timer"])) {
+    $timer = $test->getTimer($_GET["timer"]);
+
+    $a = time() - strtotime($timer["ZaciatokTestu"]);       //kolko pisem test
+    $b = strtotime($timer["CelkovyCasNaTest"]) - strtotime(substr($timer["ZaciatokTestu"], 0, 10) . "00:00:00"); //duration testu
+
+//    echo json_encode($timer);
+
+    if ($a >= $b) {
+        session_unset();
+        session_destroy();
+        echo json_encode("finished");
+
+    }else{
+        echo json_encode(date('H:i:s', $b - $a));
+    }
+
 }

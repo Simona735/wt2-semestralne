@@ -165,8 +165,7 @@ class TestController
         }
     }
 
-    //check for duplicity
-
+    //Simin na qr scany
     public function setPassPicsAns($ans_ID, $path){
         $updateQuestion = $this->conn->prepare("update pass_pics_ans set path = :path where ID = :ans_ID");
         $updateQuestion->bindValue("path", $path);
@@ -180,6 +179,7 @@ class TestController
         }
     }
 
+    //Branov na canvas
     public function updateDrawAns($draw_id, $newDraw){
         $updateDrawAns = $this->conn->prepare("update pass_pics_ans set path = :newDraw where ID = :draw_id");
         $updateDrawAns->bindValue("newDraw", $newDraw);
@@ -192,7 +192,17 @@ class TestController
         }
     }
 
-
+    public function getTimer($pass_id){
+        $getTimer = $this->conn->prepare("SELECT test_start as ZaciatokTestu, duration as CelkovyCasNaTest FROM pass_test JOIN test ON test.ID=pass_test.test_ID WHERE pass_test.ID=:pass_id");
+        $getTimer->bindValue("pass_id", $pass_id);
+        $getTimer->setFetchMode(PDO::FETCH_ASSOC);
+        try {
+            $getTimer->execute();
+            return $getTimer->fetch();
+        }catch (Exception $e){
+            $this->returnAlert($e);
+        }
+    }
 
     function returnAlert($message){
         echo "<div class='alert alert-danger' role='alert'>".

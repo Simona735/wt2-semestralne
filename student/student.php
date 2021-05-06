@@ -14,23 +14,6 @@ $location = (@$_SERVER["HTTPS"] == "on") ? "https://" : "http://";
 $location .= $_SERVER["SERVER_NAME"];// . $_SERVER["REQUEST_URI"];
 
 
-$query = $conn->query("SELECT test_start as ZaciatokTestu, duration as CelkovyCasNaTest FROM pass_test JOIN test ON test.ID=pass_test.test_ID WHERE pass_test.ID=".$_SESSION["passTestId"]);
-$timer = $query->fetchAll(PDO::FETCH_ASSOC);
-
-$_SESSION['ZaciatokTestu'] = $timer[0]["ZaciatokTestu"];
-$_SESSION['CelkovyCasNaTest'] = $timer[0]["CelkovyCasNaTest"];
-
-$a = time() - strtotime($_SESSION['ZaciatokTestu']);
-$b = strtotime($_SESSION['CelkovyCasNaTest']) - strtotime(substr($_SESSION['ZaciatokTestu'], 0, 10)."00:00:00");
-
-//if(!($a >= $b)){
-//    session_unset();
-//    session_destroy();
-//    //Odhlasi sa user
-//}
-
-$info = json_encode($b);
-
 ?>
 <!doctype html>
 <html lang="sk">
@@ -47,7 +30,7 @@ $info = json_encode($b);
     <link href="../css/styles.css" rel="stylesheet">
     <link href="../css/primary.css" rel="stylesheet">
     <link rel="icon" href="../img/to%20do%20icon.png" type="image/png" sizes="16x16">
-    <script src="../js/drawing.js"></script>
+
 </head>
 <body class="text-center">
 <div class="d-flex flex-row h-100" >
@@ -88,7 +71,7 @@ $info = json_encode($b);
 
         </div>
         <hr>
-        <a href="../Controllers/logout.php?logout=2" type="button" class="btn btn-danger mb-3">Odovzdať</a>
+        <a href="../Controllers/logout.php?logout=2" id="submitButton" type="button" class="btn btn-danger mb-3">Odovzdať</a>
 
     </div>
     <div class="p-3 bg-light w-100 test-page overflow-auto ">
@@ -175,21 +158,6 @@ $info = json_encode($b);
                                 </li>
                                 <?php
                                 break;
-
-                            case "pics_ans":
-                                ?>
-                                <li class="list-group-item d-flex justify-content-between align-items-start" id="<?php echo $question["ID"];?>">
-                                    <div class="ms-2 me-auto text-start align-items-start w-100">
-                                        <div class="fw-bold">
-                                            <p><?php echo $question["title"];?></p>
-                                        </div>
-                                        <br>
-                                        <zwibbler z-controller="mycontroller" id="<?php echo $question["draw_ans"]["pass_id"];?>">
-                                            <div z-canvas></div>
-                                        </zwibbler>
-                                    </div>
-                                </li>
-                            <?php break;
                             case "math_ans":
                                 ?>
                                 <li class="list-group-item d-flex justify-content-between align-items-start" id="<?php echo $question["ID"];?>">
@@ -198,7 +166,7 @@ $info = json_encode($b);
                                             <p><?php echo $question["title"];?></p>
                                         </div>
                                         <div class="py-2">
-                                            <math-field id="mathans-<?php echo $question["ID"];?>" class="math-style" virtual-keyboard-mode="onfocus"></math-field>
+                                            <math-field id="mathans-<?php echo $question["math_ans"]["pass_id"];?>" class="math-style" virtual-keyboard-mode="onfocus"></math-field>
                                         </div>
                                     </div>
                                     <div class="align-items-start d-flex">
@@ -208,6 +176,25 @@ $info = json_encode($b);
                                 </li>
                                 <?php
                                 break;
+                            case "pics_ans":
+                                ?>
+                                <li class="list-group-item d-flex justify-content-between align-items-start" id="<?php echo $question["ID"];?>">
+                                    <div class="ms-2 me-3 text-start align-items-start w-100">
+                                        <div class="fw-bold">
+                                            <p><?php echo $question["title"];?></p>
+                                        </div>
+                                        <div class="py-2">
+                                            <zwibbler z-controller="mycontroller" showCopyPaste="false" id="<?php echo $question["pics_ans"]["pass_id"];?>">
+                                                <div z-canvas></div>
+                                            </zwibbler>
+                                        </div>
+                                    </div>
+                                    <div class="align-items-start d-flex">
+                                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=<?php echo $location;?>/exam/scanDoc.php?data=pics_<?php echo $question["pics_ans"]["pass_id"];?>" alt="qr" height="120px" width="120px">
+                                        <i data-bs-toggle="tooltip" data-bs-placement="left" title="Pre pridanie dokumentu, naskenuj QR kód" class="tooltipIcon bi bi-info-circle ms-3"></i>
+                                    </div>
+                                </li>
+                                <?php break;
                         }
                     }; ?>
                 </ol>
@@ -238,6 +225,7 @@ $info = json_encode($b);
 <script src="https://code.jquery.com/jquery-3.5.1.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 <script src="https://zwibbler.com/zwibbler-demo.js"></script>
+<script src="../js/drawing.js"></script>
 <script src="../js/fillTest.js"></script>
 <script>
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
@@ -248,46 +236,16 @@ $info = json_encode($b);
 
 
 <script>
-    var timer = document.getElementById("timer");
-
-    var data =  <?php echo $info?> ;
-    console.log(data);
-
-
-    var defaults = {}
-        , one_second = 1000
-        , one_minute = one_second * 60
-        , one_hour = one_minute * 60
-        , one_day = one_hour * 24
-        , endDate = new Date((new Date()).getTime() + data * 1000)
-        , face = document.getElementById('timer');
-
-    tick();
-
-    function tick() {
-
-        var now = new Date()
-            , elapsed = endDate - now
-            , parts = [];
-
-        //console.log(elapsed);
-        //console.log(typeof elapsed);
-        if(elapsed <= 0){
-            console.log("uwezgqwrui"); //ukončenie testu
-        }
-
-        parts[0] = '' + Math.floor( elapsed / one_hour );
-        parts[1] = '' + Math.floor( (elapsed % one_hour) / one_minute );
-        parts[2] = '' + Math.floor( ( (elapsed % one_hour) % one_minute ) / one_second );
-
-        parts[0] = (parts[0].length == 1) ? '0' + parts[0] : parts[0];
-        parts[1] = (parts[1].length == 1) ? '0' + parts[1] : parts[1];
-        parts[2] = (parts[2].length == 1) ? '0' + parts[2] : parts[2];
-
-        face.innerText = parts.join(':');
-
-        requestAnimationFrame(tick);
-
-    }
+    setInterval(function() {
+        $.get("../ModelControllers/TestModelController.php",
+            {timer: <?php echo $_SESSION["passTestId"] ?>},
+            function(data){
+                if (!data.slice(1, 9).localeCompare("finished")){
+                    document.getElementById("submitButton").click();
+                }else{
+                    document.getElementById("timer").innerHTML = data.slice(1, 9);
+                }
+            });
+    }, 1000);
 </script>
 </html>

@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (ctx.dirty()) {
                 let element = ctx.$element;
                 saved = ctx.save('svg');                        // ulozenie obrázka do premennej
-                changeInput(element, "drawAns", null, saved);
+                changeInput(element, "picsAns", null, saved);
                 console.log("dirty")
             } else {
                 console.log("else")
