@@ -233,9 +233,23 @@ $location .= $_SERVER["SERVER_NAME"];// . $_SERVER["REQUEST_URI"];
         return new bootstrap.Tooltip(tooltipTriggerEl)
     })
 </script>
-
-
 <script>
+        document.addEventListener("visibilitychange", function() {
+            console.log(document.hidden );
+            $.ajax({
+                url: "../ModelControllers/TestModelController.php",
+                type: "post",
+                data: {tabFocus: document.hidden?"0":"1", pass_test: <?php echo $_SESSION["passTestId"] ?>},
+                success: function (result){
+                    console.log(result);
+                },
+                failure: function (){
+                    console.log("bad");
+                }
+            });
+        }, false);
+
+
     setInterval(function() {
         $.get("../ModelControllers/TestModelController.php",
             {timer: <?php echo $_SESSION["passTestId"] ?>},

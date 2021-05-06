@@ -204,6 +204,18 @@ class TestController
         }
     }
 
+    public function setFocus($pass_id, $focus){
+        $setFocus = $this->conn->prepare("UPDATE pass_test SET tab_focus=:focus WHERE pass_test.ID=:pass_id");
+        $setFocus->bindValue("pass_id", $pass_id);
+        $setFocus->bindValue("focus", $focus);
+        try {
+            $setFocus->execute();
+            return "success";
+        }catch (Exception $e){
+            $this->returnAlert($e);
+        }
+    }
+
     function returnAlert($message){
         echo "<div class='alert alert-danger' role='alert'>".
             $message.

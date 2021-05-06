@@ -87,3 +87,8 @@ if(isset($_GET["timer"])) {
     }
 
 }
+
+if(isset($_POST["tabFocus"]) && isset($_POST["pass_test"])){
+    $result = $test->setFocus($_POST["pass_test"], $_POST["tabFocus"]);
+    echo json_encode($result);
+}
