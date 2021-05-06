@@ -122,3 +122,4 @@ if(isset($_POST["deletePic"]) && isset($_POST["picType"])){
         echo json_encode("empty");
     }
 }
+

@@ -76,15 +76,7 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC))
                         <a class="nav-link" href="notifications.php" tabindex="-1" >Upozornenia</a>
                     </li>
                     <li class="nav-item me-2">
-                        <a class="nav-link" href="points.php" tabindex="-1" >Bodovanie</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false">Prehľad</a>
-                        <ul class="dropdown-menu" aria-labelledby="dropdown04">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
+                        <a class="nav-link" href="points.php" tabindex="-1" >Informácie</a>
                     </li>
                 </ul>
             </div>
@@ -145,11 +137,11 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC))
                             </a>
                         </td>
                         <td class="fs-5 text-start">
-                            <a type="button" class="btn btn-sm btn-primary <?php if($info[3] == 1) echo "disabled";?>" id="export-<?php echo $info[0] ?>">
+                            <a type="button" class="btn btn-sm btn-primary <?php if($info[3] == 1) echo "disabled";?>" id="exportPDF-<?php echo $info[0] ?>">
                                 <i class="bi bi-save"></i>
                                 PDF
                             </a>
-                            <a type="button" class="btn btn-sm btn-primary <?php if($info[3] == 1) echo "disabled";?>" id="export-<?php echo $info[0] ?>">
+                            <a type="button" class="btn btn-sm btn-primary <?php if($info[3] == 1) echo "disabled";?>" id="exportCSV-<?php echo $info[0] ?>">
                                 <i class="bi bi-save"></i>
                                 CSV
                             </a>

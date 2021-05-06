@@ -21,19 +21,19 @@ function switchActive(id){
     var active = 0;
     // $(':input[type="submit"]').prop('disabled', true);7
     var evaluateButton = document.getElementById("evaluate-"+ id);//.disabled = true;
-    var exportButton = document.getElementById("export-"+ id);//.disabled = true;
-
-    console.log("evaluateButton" + evaluateButton.disabled);
-    console.log("exportButton" + exportButton.disabled);
+    var exportPDF = document.getElementById("exportPDF-"+ id);//.disabled = true;
+    var exportCSV = document.getElementById("exportCSV-"+ id);//.disabled = true;
 
     if($("#switch-"+ id).prop("checked")){
         active = 1;
-        evaluateButton.disabled = true;
-        exportButton.disabled = true;
+        evaluateButton.classList.add("disabled");
+        exportPDF.classList.add("disabled");
+        exportCSV.classList.add("disabled");
     }else{
         active = 0;
-        evaluateButton.disabled = false;
-        exportButton.disabled = false;
+        evaluateButton.classList.remove("disabled");
+        exportPDF.classList.remove("disabled");
+        exportCSV.classList.remove("disabled");
     }
 
     $.post( "../ModelControllers/TestModelController.php", { activeState: active, testId: id});

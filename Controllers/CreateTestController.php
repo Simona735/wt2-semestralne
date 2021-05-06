@@ -204,11 +204,34 @@ class BuildTestController {
         }
     }
 
-//    public function getStudentsPerTest($test_ID) {
-//        $testCode = $this->conn->prepare("SELECT concat(student.name, ' ', student.surname) as name, pass_test.tab_focus as focus, pass_test.status as status FROM pass_test JOIN student ON pass_test.student_ID = student.id WHERE pass_test.test_ID=32");
-//        $testCode->setFetchMode(PDO::FETCH_ASSOC);
-//        $testCode->execute();
-//    }
+    public function getTestQuestionsCount($test_ID){
+        $testBasicInfo = $this->conn->prepare("SELECT test.title as title, COUNT(*) as questionCount FROM test JOIN question ON test.ID=question.test_ID WHERE test.ID=:test_id");
+        $testBasicInfo->bindValue("test_id", $test_ID);
+        $testBasicInfo->setFetchMode(PDO::FETCH_ASSOC);
+        try {
+            $testBasicInfo->execute();
+            return $testBasicInfo->fetch();
+        } catch (Exception $e) {
+            returnAlert($e);
+        }
+    }
+
+    public function getStudentsPerTest($test_ID) {
+        $testStudents = $this->conn->prepare("SELECT student.id as studentID, pass_test.graded as graded, concat(student.surname, ' ', student.name) as name, pass_test.tab_focus as focus, pass_test.status as status FROM pass_test JOIN student ON pass_test.student_ID = student.id WHERE pass_test.test_ID=:test_id ORDER BY pass_test.tab_focus, student.surname  ASC;");
+        $testStudents->bindValue("test_id", $test_ID);
+        $testStudents->setFetchMode(PDO::FETCH_ASSOC);
+
+        $records =[];
+        try {
+            $testStudents->execute();
+            while ($row = $testStudents->fetch()) {
+                array_push($records, $row);
+            }
+            return $records;
+        } catch (Exception $e) {
+            returnAlert($e);
+        }
+    }
 }
 
 function returnAlert($message){

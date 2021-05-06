@@ -51,15 +51,7 @@ if (!isset($_SESSION["loggedTeacher"])) {
                         <a class="nav-link" href="notifications.php" tabindex="-1" >Upozornenia</a>
                     </li>
                     <li class="nav-item me-2">
-                        <a class="nav-link active" href="#" aria-current="page" >Bodovanie</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false">Prehľad</a>
-                        <ul class="dropdown-menu" aria-labelledby="dropdown04">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
+                        <a class="nav-link active" href="#" aria-current="page" >Informácie</a>
                     </li>
                 </ul>
             </div>

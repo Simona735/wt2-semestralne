@@ -67,8 +67,10 @@ $location .= $_SERVER["SERVER_NAME"];// . $_SERVER["REQUEST_URI"];
                 </a>
             </li>
         </ul>
-        <div id="timer">
-
+        <div>
+            <p>Čas do konca testu</p>
+            <div id="timer" class="fs-1">
+            </div>
         </div>
         <hr>
         <a href="../Controllers/logout.php?logout=2" id="submitButton" type="button" class="btn btn-danger mb-3">Odovzdať</a>

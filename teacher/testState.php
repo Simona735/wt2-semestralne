@@ -34,6 +34,11 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC))
     array_push($all,[$row["ID"],$row["title"],$row["duration"],$row["activation"], $row["test_code"]]);
 }
 
+if (!isset($_GET["test"])){
+    header("location: index.php");
+}
+$students = $testBuilder->getStudentsPerTest($_GET["test"]);
+$basicInfo = $testBuilder->getTestQuestionsCount($_GET["test"]);
 ?>
 
 <!doctype html>
@@ -76,15 +81,7 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC))
                         <a class="nav-link" href="notifications.php" tabindex="-1" >Upozornenia</a>
                     </li>
                     <li class="nav-item me-2">
-                        <a class="nav-link" href="points.php" tabindex="-1" >Bodovanie</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false">Prehľad</a>
-                        <ul class="dropdown-menu" aria-labelledby="dropdown04">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
+                        <a class="nav-link" href="points.php" tabindex="-1" >Informácie</a>
                     </li>
                 </ul>
             </div>
@@ -106,47 +103,52 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC))
     </nav>
 
     <main class="px-3">
-        <h1 class="my-4">Test [kod/nazov]</h1>
+        <h1 class="my-4">Test <?php echo $basicInfo["title"];?></h1>
         <div class="container">
             <table class="table table-sm table-primary">
                 <thead>
                 <tr>
-                    <th scope="col" class="text-start">ID</th>
-                    <th scope="col" class="text-start">Študent</th>
-                    <th scope="col" class="text-start">Stav</th>
-                    <th scope="col" class="text-start">Aktívny tab</th>
-                    <th scope="col" class="text-start">Opraviť</th>
+                    <th class="text-start">Študent</th>
+                    <th class="text-start">Aktívny tab</th>
+                    <th class="text-start">Stav</th>
+                    <th>Opraviť</th>
+                    <th class="text-start">Vyhodnotené</th>
+                    <th class="text-start">Počet bodov</th>
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($all as $info){ ?>
+                <?php foreach ($students as $student){ ?>
                     <tr>
-                        <td class="test-title text-start"><?php echo $info[1] ?></td>
-                        <td class="text-start" ><span class="badge bg-code fs-5"><?php echo $info[4] ?></span></td>
-                        <td class="fs-5 text-start"><?php echo $info[2] ?></td>
+                        <td class="fs-5 text-start"><?php echo $student["name"] ?></td>
+                        <td class="fs-5 text-start">
+                            <?php if($student["focus"] == 0){ ?>
+                                <i class="bi bi-circle-fill text-danger"></i>
+                            <?php }else{ ?>
+                                <i class="bi bi-circle-fill text-success"></i>
+                            <?php } ?>
+                        </td>
+                        <td class="fs-5 text-start">
+                            <?php if($student["status"] == 0){ ?>
+                                <i class="bi bi-check-circle-fill text-success"></i>
+                            <?php }else{ ?>
+                                <i class="bi bi-record-circle text-primary"></i>
+                            <?php } ?>
+                        </td>
                         <td class="fs-5">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" onchange="switchActive('<?php echo $info[0] ?>')" type="checkbox" id="switch-<?php echo $info[0] ?>" <?php if($info[3] == 1) echo "checked";?>>
-                                <label class="form-check-label" for="switch-<?php echo $info[0] ?>"></label>
-                            </div>
-                        </td>
-                        <td class="fs-5 text-start">
-                            <button type="button" class="btn btn-sm btn-primary">
-                                <i class="bi bi-eye"></i>
-                                Sleduj stav
-                            </button>
-                        </td>
-                        <td class="fs-5 text-start">
-                            <button type="button" class="btn btn-sm btn-primary" id="evaluate-<?php echo $info[0] ?>" <?php if($info[3] == 1) echo "disabled";?>>
+                            <button type="button" class="btn btn-sm btn-primary" id="evaluate-<?php echo $student["studentID"] ?>" <?php if($student["status"] == 1) echo "disabled";?>>
                                 <i class="bi bi-pen"></i>
                                 Oprav test
                             </button>
                         </td>
-                        <td class="fs-5 text-start">
-                            <button type="button" class="btn btn-sm btn-primary" id="export-<?php echo $info[0] ?>" <?php if($info[3] == 1) echo "disabled";?>>
-                                <i class="bi bi-save"></i>
-                                Export výsledkov
-                            </button>
+                        <td class="fs-5 text-start ps-5">
+                            <?php if($student["graded"] == 0){ ?>
+                                <i class="bi bi-exclamation-circle text-primary"></i>
+                            <?php }else{ ?>
+                                <i class="bi bi-check-circle-fill text-success"></i>
+                            <?php } ?>
+                        </td>
+                        <td class="fs-5 text-start ps-4">
+                            x/<?php echo $basicInfo["questionCount"];?>
                         </td>
                     </tr>
                 <?php } ?>
