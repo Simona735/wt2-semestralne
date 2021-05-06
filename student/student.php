@@ -1,5 +1,8 @@
 <?php
 require_once "../Controllers/TestController.php";
+require_once "../db connection/Database.php";
+
+$conn = (new Database())->getConnection();
 $test = new TestController();
 
 session_start();
@@ -9,6 +12,24 @@ if(!isset($_SESSION["loggedStudent"])){
 
 $location = (@$_SERVER["HTTPS"] == "on") ? "https://" : "http://";
 $location .= $_SERVER["SERVER_NAME"];// . $_SERVER["REQUEST_URI"];
+
+
+$query = $conn->query("SELECT test_start as ZaciatokTestu, duration as CelkovyCasNaTest FROM pass_test JOIN test ON test.ID=pass_test.test_ID WHERE pass_test.ID=".$_SESSION["passTestId"]);
+$timer = $query->fetchAll(PDO::FETCH_ASSOC);
+
+$_SESSION['ZaciatokTestu'] = $timer[0]["ZaciatokTestu"];
+$_SESSION['CelkovyCasNaTest'] = $timer[0]["CelkovyCasNaTest"];
+
+$a = time() - strtotime($_SESSION['ZaciatokTestu']);
+$b = strtotime($_SESSION['CelkovyCasNaTest']) - strtotime(substr($_SESSION['ZaciatokTestu'], 0, 10)."00:00:00");
+
+//if(!($a >= $b)){
+//    session_unset();
+//    session_destroy();
+//    //Odhlasi sa user
+//}
+
+$info = json_encode($b);
 
 ?>
 <!doctype html>
@@ -62,6 +83,9 @@ $location .= $_SERVER["SERVER_NAME"];// . $_SERVER["REQUEST_URI"];
                 </a>
             </li>
         </ul>
+        <div id="timer">
+
+        </div>
         <hr>
         <a href="../Controllers/logout.php?logout=2" type="button" class="btn btn-danger mb-3">Odovzdať</a>
 
@@ -203,5 +227,50 @@ $location .= $_SERVER["SERVER_NAME"];// . $_SERVER["REQUEST_URI"];
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
     })
+</script>
+
+
+<script>
+    var timer = document.getElementById("timer");
+
+    var data =  <?php echo $info?> ;
+    console.log(data);
+
+
+    var defaults = {}
+        , one_second = 1000
+        , one_minute = one_second * 60
+        , one_hour = one_minute * 60
+        , one_day = one_hour * 24
+        , endDate = new Date((new Date()).getTime() + data * 1000)
+        , face = document.getElementById('timer');
+
+    tick();
+
+    function tick() {
+
+        var now = new Date()
+            , elapsed = endDate - now
+            , parts = [];
+
+        //console.log(elapsed);
+        //console.log(typeof elapsed);
+        if(elapsed <= 0){
+            console.log("uwezgqwrui"); //ukončenie testu
+        }
+
+        parts[0] = '' + Math.floor( elapsed / one_hour );
+        parts[1] = '' + Math.floor( (elapsed % one_hour) / one_minute );
+        parts[2] = '' + Math.floor( ( (elapsed % one_hour) % one_minute ) / one_second );
+
+        parts[0] = (parts[0].length == 1) ? '0' + parts[0] : parts[0];
+        parts[1] = (parts[1].length == 1) ? '0' + parts[1] : parts[1];
+        parts[2] = (parts[2].length == 1) ? '0' + parts[2] : parts[2];
+
+        face.innerText = parts.join(':');
+
+        requestAnimationFrame(tick);
+
+    }
 </script>
 </html>
