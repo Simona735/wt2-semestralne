@@ -38,7 +38,7 @@ if (!isset($_GET["test"])){
     header("location: index.php");
 }
 $students = $testBuilder->getStudentsPerTest($_GET["test"]);
-$basicInfo = $testBuilder->getTestQuestionsCount($_GET["test"]);
+$basicInfo = $testBuilder->getTestDetails($_GET["test"]);
 ?>
 
 <!doctype html>
@@ -102,8 +102,18 @@ $basicInfo = $testBuilder->getTestQuestionsCount($_GET["test"]);
         </div>
     </nav>
 
-    <main class="px-3">
+    <main class="px-3 pb-5">
         <h1 class="my-4">Test <?php echo $basicInfo["title"];?></h1>
+        <div class="container pb-4">
+            <a type="button" class="btn btn-sm btn-primary <?php if($basicInfo["active"] == 1) echo "disabled";?>" id="exportPDF-<?php echo $_GET["test"] ?>">
+                <i class="bi bi-save"></i>
+                PDF
+            </a>
+            <a type="button" class="btn btn-sm btn-primary <?php if($basicInfo["active"] == 1) echo "disabled";?>" id="exportCSV-<?php echo $_GET["test"] ?>">
+                <i class="bi bi-save"></i>
+                CSV
+            </a>
+        </div>
         <div class="container">
             <table class="table table-sm table-primary">
                 <thead>
@@ -113,7 +123,7 @@ $basicInfo = $testBuilder->getTestQuestionsCount($_GET["test"]);
                     <th class="text-start">Stav</th>
                     <th>Opraviť</th>
                     <th class="text-start">Vyhodnotené</th>
-                    <th class="text-start">Počet bodov</th>
+                    <th class="text-start">Počet bodov / <?php echo $basicInfo["questionCount"];?></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -148,7 +158,7 @@ $basicInfo = $testBuilder->getTestQuestionsCount($_GET["test"]);
                             <?php } ?>
                         </td>
                         <td class="fs-5 text-start ps-4">
-                            x/<?php echo $basicInfo["questionCount"];?>
+                            x
                         </td>
                     </tr>
                 <?php } ?>

@@ -204,8 +204,8 @@ class BuildTestController {
         }
     }
 
-    public function getTestQuestionsCount($test_ID){
-        $testBasicInfo = $this->conn->prepare("SELECT test.title as title, COUNT(*) as questionCount FROM test JOIN question ON test.ID=question.test_ID WHERE test.ID=:test_id");
+    public function getTestDetails($test_ID){
+        $testBasicInfo = $this->conn->prepare("SELECT test.activation as active, test.title as title, COUNT(*) as questionCount FROM test JOIN question ON test.ID=question.test_ID WHERE test.ID=:test_id");
         $testBasicInfo->bindValue("test_id", $test_ID);
         $testBasicInfo->setFetchMode(PDO::FETCH_ASSOC);
         try {
