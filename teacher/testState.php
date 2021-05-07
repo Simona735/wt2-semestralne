@@ -135,10 +135,10 @@ $basicInfo = $testBuilder->getTestQuestionsCount($_GET["test"]);
                             <?php } ?>
                         </td>
                         <td class="fs-5">
-                            <button type="button" class="btn btn-sm btn-primary" id="evaluate-<?php echo $student["studentID"] ?>" <?php if($student["status"] == 1) echo "disabled";?>>
+                            <a type="button" class="btn btn-sm btn-primary <?php if($student["status"] == 1) echo "disabled";?>" href="grading.php?passTestID=<?php echo $student["passTestID"] ?>" id="evaluate-<?php echo $student["studentID"] ?>" >
                                 <i class="bi bi-pen"></i>
                                 Oprav test
-                            </button>
+                            </a>
                         </td>
                         <td class="fs-5 text-start ps-5">
                             <?php if($student["graded"] == 0){ ?>

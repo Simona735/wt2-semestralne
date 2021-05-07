@@ -126,7 +126,7 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC))
                         <td class="fs-5 text-start">
                             <a type="button" class="btn btn-sm btn-primary" href="testState.php?test=<?php echo $info[0] ?>">
                                 <i class="bi bi-eye"></i>
-                                Sleduj stav
+                                Podrobnosti
                             </a>
                         </td>
                         <td class="fs-5 text-start">
