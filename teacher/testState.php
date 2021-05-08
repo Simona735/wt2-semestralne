@@ -1,22 +1,8 @@
 <?php
-require_once "../Controllers/CreateTestController.php";
-$testBuilder = new BuildTestController();
+require_once "../Controllers/TestGradingController.php";
+$test = new TestGradingController();
 $conn = (new Database())->getConnection();
 
-// delete no correct close test builder
-$deleteTest = $conn->prepare("select ID from test where test_code = 0");
-$deleteTest->execute();
-while ($row = $deleteTest->fetch(PDO::FETCH_ASSOC)) {
-    $deleteQuestion = $conn->prepare("select ID from question where test_id = :test_id");
-    $deleteQuestion->bindValue("test_id", $row["ID"]);
-    $deleteQuestion->execute();
-    while ($rowq = $deleteQuestion->fetch(PDO::FETCH_ASSOC)) {
-        $testBuilder->deleteQuestion($rowq["ID"]);
-    }
-    $deleteTestWorker = $conn->prepare("delete from test where ID = :test_ID");
-    $deleteTestWorker->bindValue("test_ID", $row["ID"]);
-    $deleteTestWorker->execute();
-}
 session_start();
 
 if(isset($_COOKIE["remember"])){
@@ -37,8 +23,8 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC))
 if (!isset($_GET["test"])){
     header("location: index.php");
 }
-$students = $testBuilder->getStudentsPerTest($_GET["test"]);
-$basicInfo = $testBuilder->getTestDetails($_GET["test"]);
+$students = $test->getStudentsPerTest($_GET["test"]);
+$basicInfo = $test->getTestDetails($_GET["test"]);
 ?>
 
 <!doctype html>

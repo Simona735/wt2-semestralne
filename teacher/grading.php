@@ -1,4 +1,7 @@
 <?php
+require_once "../Controllers/TestGradingController.php";
+$test = new TestGradingController();
+
 session_start();
 
 if(isset($_COOKIE["remember"])){
@@ -11,6 +14,16 @@ if (!isset($_SESSION["loggedTeacher"])) {
 
 if(!isset($_GET["passTestID"])){
     header("location: index.php");
+}
+
+$questions = $test->getTestForGrading($_GET["passTestID"]);
+
+console_log($questions);
+
+function console_log( $data ){
+    echo '<script>';
+    echo 'console.log('. json_encode( $data ) .')';
+    echo '</script>';
 }
 
 ?>
@@ -84,29 +97,28 @@ if(!isset($_GET["passTestID"])){
                 <form action="" method="POST">
                     <ol id="testContent" class="list-group list-group-numbered">
                         <input type="hidden" name="passTestID" value="<?php echo $_GET["passTestID"]; ?>">
-                        <?php foreach (getTestForGrading($_GET["passTestID"]) as $question){
+                        <?php foreach ($questions as $question){
                             switch ($question["type"]){
                             case "short_ans":
                                 ?>
-                                <li class="list-group-item d-flex justify-content-between align-items-start" id="<?php echo $question["ID"];?>">
+                                <li class="list-group-item d-flex justify-content-between align-items-start" id="<?php echo $question["passQuestionId"];?>">
                                     <div class="ms-2 me-auto text-start align-items-start w-100">
                                         <div class="fw-bold">
                                             <p><?php echo $question["title"];?></p>
                                         </div>
                                         <div class="py-2">
-                                            <output><?php echo $question["short_ans"]["my_ans"];?></output>
+                                            <output><?php echo $question["short_ans"];?></output>
                                         </div>
                                     </div>
                                     <div class="align-items-start d-flex">
-                                        <h4><span class="badge bg-primary">body</span></h4>
-                                        <h4><span class="badge bg-secondary">body</span></h4>
+                                        <h4><span class="badge <?php echo $question["point"] == 1 ? "bg-primary" : "bg-secondary";?>"><?php echo $question["point"];?></span></h4>
                                     </div>
                                 </li>
                             <?php
                             break;
                             case "more_ans":
                             ?>
-                                <li class="list-group-item d-flex justify-content-between align-items-start" id="<?php echo $question["ID"];?>">
+                                <li class="list-group-item d-flex justify-content-between align-items-start" id="<?php echo $question["passQuestionId"];?>">
                                     <div class="ms-2 me-auto text-start align-items-start w-100">
                                         <div class="fw-bold">
                                             <p><?php echo $question["title"];?></p>
@@ -131,7 +143,7 @@ if(!isset($_GET["passTestID"])){
                             break;
                             case "pair_ans":
                             ?>
-                                <li class="list-group-item d-flex justify-content-between align-items-start" id="<?php echo $question["ID"];?>">
+                                <li class="list-group-item d-flex justify-content-between align-items-start" id="<?php echo $question["passQuestionId"];?>">
                                     <div class="ms-2 me-auto text-start align-items-start w-100">
                                         <div class="fw-bold">
                                             <p><?php echo $question["title"];?></p>
@@ -167,20 +179,25 @@ if(!isset($_GET["passTestID"])){
                             break;
                             case "math_ans":
                             ?>
-                                <li class="list-group-item d-flex justify-content-between align-items-start" id="<?php echo $question["ID"];?>">
+                                <li class="list-group-item d-flex justify-content-between align-items-start" id="<?php echo $question["passQuestionId"];?>">
                                     <div class="ms-2 me-3 text-start align-items-start w-100">
                                         <div class="fw-bold">
                                             <p><?php echo $question["title"];?></p>
                                         </div>
                                         <div class="py-2">
-                                            <math-field read-only id="mathans-<?php echo $question["math_ans"]["pass_id"];?>" class="math-style" virtual-keyboard-mode="off"></math-field>
-                                            <img src="<?php echo $question["path"];?>" alt="image answer" height="200px" width="200px">
+                                            <?php if($question["math_ans"]["type"] == "editor"){?>
+                                                <math-field read-only id="mathans-<?php echo $question["math_ans"]["pass_id"];?>" class="math-style" virtual-keyboard-mode="off"></math-field>
+                                            <?php }else if($question["math_ans"]["type"] == "scanned") {?>
+                                                <img src="<?php echo $question["math_ans"]["value"];?>" onclick="showModal('<?php echo $question["math_ans"]["value"];?>')" alt="image answer" height="200px">
+                                            <?php }else{?>
+                                                <p>-</p>
+                                            <?php }?>
                                         </div>
                                     </div>
                                     <div class="align-items-start d-flex">
                                         <input class="form-check-input" type="checkbox" value="" id="mathans-<?php echo $question["math_ans"]["pass_id"];?>">
                                         <label class="form-check-label" for="mathans-<?php echo $question["math_ans"]["pass_id"];?>">
-                                            správne
+                                            &nbsp;správne
                                         </label>
                                     </div>
                                 </li>
@@ -189,19 +206,23 @@ if(!isset($_GET["passTestID"])){
                             break;
                             case "pics_ans":
                             ?>
-                                <li class="list-group-item d-flex justify-content-between align-items-start" id="<?php echo $question["ID"];?>">
+                                <li class="list-group-item d-flex justify-content-between align-items-start" id="<?php echo $question["passQuestionId"];?>">
                                     <div class="ms-2 me-3 text-start align-items-start w-100">
                                         <div class="fw-bold">
                                             <p><?php echo $question["title"];?></p>
                                         </div>
                                         <div class="py-2">
-                                            <img src="<?php echo $question["path"];?>" alt="image answer" height="200px" width="200px">
+                                            <?php if($question["pics_ans"]["value"] == null){?>
+                                                <p>-</p>
+                                            <?php }else{?>
+                                                <img src="<?php echo $question["pics_ans"]["value"];?>" onclick="showModal(<?php echo $question["pics_ans"]["value"];?>)" alt="image answer" height="200px">
+                                            <?php }?>
                                         </div>
                                     </div>
                                     <div class="align-items-start d-flex">
                                         <input class="form-check-input" type="checkbox" value="" id="picsans-<?php echo $question["pics_ans"]["pass_id"];?>">
                                         <label class="form-check-label" for="picsans-<?php echo $question["pics_ans"]["pass_id"];?>">
-                                            správne
+                                            &nbsp;správne
                                         </label>
                                     </div>
                                 </li>
@@ -210,12 +231,27 @@ if(!isset($_GET["passTestID"])){
                             }
                         }; ?>
                     </ol>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary my-3">Submit</button>
                 </form>
             </div>
 
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="pictureModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="" alt="image answer" id="modalImage" style="max-height: 600px">
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 
@@ -224,4 +260,13 @@ if(!isset($_GET["passTestID"])){
 <script src="https://code.jquery.com/jquery-3.5.1.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 <script src="https://zwibbler.com/zwibbler-demo.js"></script>
+
+<script>
+    function showModal(content){
+        console.log("clicked");
+        var modalImage = document.getElementById('modalImage');
+        modalImage.setAttribute("src", content);
+        $('#pictureModal').modal('toggle');
+    }
+</script>
 </html>

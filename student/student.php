@@ -41,31 +41,7 @@ $location .= $_SERVER["SERVER_NAME"];// . $_SERVER["REQUEST_URI"];
         </div>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
-            <li class="nav-item">
-                <a href="#" class="nav-link active">
-                    Home
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link text-white">
-                    Dashboard
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link text-white">
-                    Orders
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link text-white">
-                    Products
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link text-white">
-                    Customers
-                </a>
-            </li>
+
         </ul>
         <div>
             <p>Čas do konca testu</p>
