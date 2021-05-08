@@ -17,15 +17,6 @@ if(!isset($_GET["passTestID"])){
 }
 
 $questions = $test->getTestForGrading($_GET["passTestID"]);
-
-console_log($questions);
-
-function console_log( $data ){
-    echo '<script>';
-    echo 'console.log('. json_encode( $data ) .')';
-    echo '</script>';
-}
-
 ?>
 <!doctype html>
 <html lang="sk">
@@ -231,7 +222,7 @@ function console_log( $data ){
                             }
                         }; ?>
                     </ol>
-                    <button type="submit" class="btn btn-primary my-3">Submit</button>
+                    <button type="submit" class="btn btn-primary my-3">Potvrď</button>
                 </form>
             </div>
 
