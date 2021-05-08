@@ -186,7 +186,7 @@ $questions = $test->getTestForGrading($_GET["passTestID"]);
                                         </div>
                                     </div>
                                     <div class="align-items-start d-flex">
-                                        <input class="form-check-input" type="checkbox" value="" id="mathans-<?php echo $question["math_ans"]["pass_id"];?>">
+                                        <input class="form-check-input" name="mathCorrect-<?php echo $question["math_ans"]["pass_id"];?>" type="checkbox" value="" id="mathans-<?php echo $question["math_ans"]["pass_id"];?>">
                                         <label class="form-check-label" for="mathans-<?php echo $question["math_ans"]["pass_id"];?>">
                                             &nbsp;správne
                                         </label>
@@ -211,7 +211,7 @@ $questions = $test->getTestForGrading($_GET["passTestID"]);
                                         </div>
                                     </div>
                                     <div class="align-items-start d-flex">
-                                        <input class="form-check-input" type="checkbox" value="" id="picsans-<?php echo $question["pics_ans"]["pass_id"];?>">
+                                        <input class="form-check-input" name="picsCorrect-<?php echo $question["pics_ans"]["pass_id"];?>" type="checkbox" value="" id="picsans-<?php echo $question["pics_ans"]["pass_id"];?>">
                                         <label class="form-check-label" for="picsans-<?php echo $question["pics_ans"]["pass_id"];?>">
                                             &nbsp;správne
                                         </label>
