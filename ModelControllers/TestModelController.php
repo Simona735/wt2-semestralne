@@ -27,9 +27,13 @@ if (isset($_POST["update_AValue"])){
             echo json_encode($result);
             break;
         case "picsAns":
+            $id = explode("-", $_POST["CA_ID"])[1];
+            $result = $test->updateDrawAns($id, $_POST["CA_ans"]);
+            echo json_encode($result);
             break;
-        case "drawAns":
-            $result = $test->updateDrawAns($_POST["DA_ID"], $_POST["DA_ans"]);
+        case "mathAns":
+            $id = explode("-", $_POST["MT_ID"])[1];
+            $result = $test->setPassMathAns($id, $_POST["MT_ans"]);
             echo json_encode($result);
             break;
     }
@@ -67,13 +71,12 @@ if(isset($_POST["passTestID"]) && isset($_POST["questionType"])){
     } else {
         header("location: ../scanDoc.php?alert=Error");
     }
-}
+    }
 
-if(isset($_GET["timer"])) {
-    $timer = $test->getTimer($_GET["timer"]);
-
-    $a = time() - strtotime($timer["ZaciatokTestu"]);       //kolko pisem test
-    $b = strtotime($timer["CelkovyCasNaTest"]) - strtotime(substr($timer["ZaciatokTestu"], 0, 10) . "00:00:00"); //duration testu
+    if(isset($_GET["timer"])) {
+        $timer = $test->getTimer($_GET["timer"]);
+        $a = time() - strtotime($timer["ZaciatokTestu"]);       //kolko pisem test
+        $b = strtotime($timer["CelkovyCasNaTest"]) - strtotime(substr($timer["ZaciatokTestu"], 0, 10) . "00:00:00"); //duration testu
 
 //    echo json_encode($timer);
 
@@ -83,7 +86,7 @@ if(isset($_GET["timer"])) {
         echo json_encode("finished");
 
     }else{
-        echo json_encode(date('H:i:s', $b - $a));
+        echo json_encode(date('H:i:s', $b - $a - 3600));
     }
 
 }
@@ -98,20 +101,20 @@ if(isset($_POST["imageType"]) && isset($_POST["passId"])){
     if(count($images) == 1){
         if($_POST["imageType"] == "math"){
             $result = $test->setPassMathAns($_POST["passId"], $images[0]);
-        }else{
+        } else {
             $result = $test->setPassPicsAns($_POST["passId"], $images[0]);
         }
         echo json_encode(basename($images[0]));
-    }else{
+    } else {
         echo json_encode("null");
     }
 }
 
 if(isset($_POST["deletePic"]) && isset($_POST["picType"])){
     if($_POST["picType"] == "math"){
-        $result = $test->setPassMathAns($_POST["passId"], null);
+        $result = $test->setPassMathAns($_POST["deletePic"], null);
     }else{
-        $result = $test->setPassPicsAns($_POST["passId"], null);
+        $result = $test->setPassPicsAns($_POST["deletePic"], null);
     }
     $images = glob("../img/scannedAnswers/".$_POST["picType"].'Ans_'.$_POST["deletePic"].".*");
 

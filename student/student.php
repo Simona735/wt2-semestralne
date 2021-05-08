@@ -119,7 +119,7 @@ $location .= $_SERVER["SERVER_NAME"];// . $_SERVER["REQUEST_URI"];
                                         <?php $i = 0; foreach ($question["pair_ans"] as $answer){ $i++;?>
                                         <div class="py-2 row" id="<?php echo $answer["ID"];?>">
                                             <div class="col-sm-2">
-                                                <input type="number" min="1" class="form-control form-control-sm" id="pairans-<?php echo $answer["pass_id"];?>" placeholder="" onchange="changeInput(this, 'pairAns', '<?php echo $answer["left_part"];?>')">
+                                                <input type="number" min="1" class="form-control form-control-sm" id="pairans-<?php echo $answer["pass_id"];?>" placeholder="" onchange="changeInput(this, 'pairAns', '<?php echo $answer["left_part"];?>', null, '<?php echo $question["ID"];?>')">
                                             </div>
                                             <div class="col-sm-5">
                                                 <label for="pairans-<?php echo $answer["pass_id"];?>" class="col-sm-5 col-form-label col-form-label-sm"><?php echo $answer["left_part"];?></label>
@@ -127,7 +127,7 @@ $location .= $_SERVER["SERVER_NAME"];// . $_SERVER["REQUEST_URI"];
                                             <div class="col-sm-1">
                                                 <?php echo $i;?>
                                             </div>
-                                            <div class="col-sm-4" id="pairright-<?php echo $i;?>">
+                                            <div class="col-sm-4" id="pairright-<?php echo $question["ID"]."-".$i;?>">
                                                 <p><?php echo $answer["right_part"];?></p>
                                             </div>
                                         </div>
@@ -144,7 +144,7 @@ $location .= $_SERVER["SERVER_NAME"];// . $_SERVER["REQUEST_URI"];
                                             <p><?php echo $question["title"];?></p>
                                         </div>
                                         <div class="py-2">
-                                            <math-field id="mathans-<?php echo $question["math_ans"]["pass_id"];?>" class="math-style" virtual-keyboard-mode="onfocus"></math-field>
+                                            <math-field id="mathans-<?php echo $question["math_ans"]["pass_id"];?>" class="math-style" virtual-keyboard-mode="onfocus" onchange="changeInput(this, 'mathAns')"></math-field>
                                             <button type="button" class="btn btn-outline-danger d-none" onclick="deleteScannedImg('math','<?php echo $question["math_ans"]["pass_id"];?>')" id="mathBtn-<?php echo $question["math_ans"]["pass_id"];?>">
                                                 <i class="bi bi-x"></i>
                                                 Vymaž naskenovaný obrázok
@@ -235,8 +235,6 @@ $location .= $_SERVER["SERVER_NAME"];// . $_SERVER["REQUEST_URI"];
     </div>
 </div>
 
-
-
 </body>
 <script src='https://unpkg.com/mathlive/dist/mathlive.min.js'></script>
 <script src="https://code.jquery.com/jquery-3.5.1.js" crossorigin="anonymous"></script>
@@ -247,10 +245,11 @@ $location .= $_SERVER["SERVER_NAME"];// . $_SERVER["REQUEST_URI"];
 <script>
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl)
+        return new bootstrap.Tooltip(tooltipTriggerEl);
     })
 </script>
 <script>
+
     function insertAfter(referenceNode, newNode) {
         referenceNode.parentNode.append(newNode);
     }
@@ -263,8 +262,8 @@ $location .= $_SERVER["SERVER_NAME"];// . $_SERVER["REQUEST_URI"];
             success: function (){
                 document.getElementById(type+"ans-"+passId).style.display = "block";
                 document.getElementById(type+"Btn-"+passId).classList.add("d-none");
+                zwibblers["picsans-"+passId].newDocument();
             }
-
         });
     }
 

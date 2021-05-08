@@ -26,8 +26,6 @@ if (isset($_POST["addQuestion"]) and $_POST["addQuestion"]){
             echo json_encode($result);
             break;
         case "pics_ans":
-            echo json_encode($result);
-            break;
         case "math_ans":
             echo json_encode($result);
             break;

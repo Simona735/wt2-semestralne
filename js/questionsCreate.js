@@ -395,7 +395,7 @@ function submitTest (id){
     $.post( "../ModelControllers/BuildTestModelController.php", { test_ID: id})
         .done(function( data ) {
             console.log(data);
-            window.location = "allTests.php";
+            window.location = "index.php";
         });
 }
 

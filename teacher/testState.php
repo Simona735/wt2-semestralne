@@ -91,7 +91,7 @@ $basicInfo = $test->getTestDetails($_GET["test"]);
     <main class="px-3 pb-5">
         <h1 class="my-4">Test <?php echo $basicInfo["title"];?></h1>
         <div class="container pb-4">
-            <a type="button" class="btn btn-sm btn-primary <?php if($basicInfo["active"] == 1) echo "disabled";?>" id="exportPDF-<?php echo $_GET["test"] ?>">
+            <a type="button" href="exportPDF.php?test=<?php echo $_GET["test"];?>" class="btn btn-sm btn-primary <?php if($basicInfo["active"] == 1) echo "disabled";?>" id="exportPDF-<?php echo $_GET["test"] ?>">
                 <i class="bi bi-save"></i>
                 PDF
             </a>
@@ -110,6 +110,7 @@ $basicInfo = $test->getTestDetails($_GET["test"]);
                     <th>Opraviť</th>
                     <th class="text-start">Vyhodnotené</th>
                     <th class="text-start">Počet bodov / <?php echo $basicInfo["questionCount"];?></th>
+                    <th class="text-start">Percentá</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -144,7 +145,10 @@ $basicInfo = $test->getTestDetails($_GET["test"]);
                             <?php } ?>
                         </td>
                         <td class="fs-5 text-start ps-4">
-                            x
+                            <?php echo $student["score"];?>
+                        </td>
+                        <td class="fs-5 text-start ps-4">
+                            <?php echo 100*intval($student["score"])/intval($basicInfo["questionCount"]);?>%
                         </td>
                     </tr>
                 <?php } ?>

@@ -29,14 +29,14 @@ function buildTest(data){
                 formBody.append(buildPair(data));
                 break;
             case "pics_ans":
-                formBody.append(buildPics(data));
+                // add
                 break;
             case "math_ans":
                 formBody.append(buildMath(data));
                 break;
             default:
             // you fucked up
-        }
+        };
     });
 }
 
@@ -56,8 +56,7 @@ function buildPair(data){
 }
 
 function buildPics(data){
-    let answerField = answerFieldDraw(data);
-    return createQuestionWrapper(data.id, data.title, answerField)
+    // will be
 }
 
 function buildMath(data){
@@ -144,17 +143,6 @@ function addOption(data){
     div.append(label);
 
     return div;
-}
-
-function answerFieldDraw(data){
-    let zwibbler = document.createElement("zwibbler")
-    zwibbler.setAttribute("z-controller", "mycontroller")
-    zwibbler.setAttribute("id", data.id)
-
-    let canvas = document.createElement("div")
-    canvas.setAttribute("z-canvas", '')
-    zwibbler.append(canvas);
-    return zwibbler;
 }
 
 function answerFieldMath(data){

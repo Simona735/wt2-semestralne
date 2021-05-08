@@ -85,7 +85,7 @@ $questions = $test->getTestForGrading($_GET["passTestID"]);
         <div class="p-3 bg-light w-100 test-page overflow-auto ">
             <div class="bg-white paper-shadow">
                 <h2 class="py-1">Študent, pass test ID: <?php echo $_GET["passTestID"]; ?></h2>
-                <form action="" method="POST">
+                <form action="../ModelControllers/GradingModelController.php" method="POST">
                     <ol id="testContent" class="list-group list-group-numbered">
                         <input type="hidden" name="passTestID" value="<?php echo $_GET["passTestID"]; ?>">
                         <?php foreach ($questions as $question){
@@ -117,17 +117,16 @@ $questions = $test->getTestForGrading($_GET["passTestID"]);
                                         <div class="py-2">
                                             <?php foreach ($question["more_ans"] as $answer){?>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="moreans-<?php echo $answer["pass_id"];?>" disabled >
-                                                    <label class="form-check-label" for="moreans-<?php echo $answer["pass_id"];?>">
-                                                        <?php echo $answer["title"];?>
+                                                    <input class="form-check-input" type="checkbox" value="" id="moreans-<?php echo $answer["moreID"];?>" <?php echo $answer["my_ans"] == 1 ? "checked" : "";?> disabled>
+                                                    <label class="form-check-label" for="moreans-<?php echo $answer["moreID"];?>">
+                                                        <?php echo $answer["optionTitle"];?>
                                                     </label>
                                                 </div>
                                             <?php };?>
                                         </div>
                                     </div>
                                     <div class="align-items-start d-flex">
-                                        <h4><span class="badge bg-primary">body</span></h4>
-                                        <h4><span class="badge bg-secondary">body</span></h4>
+                                        <h4><span class="badge <?php echo $question["point"] == 1 ? "bg-primary" : "bg-secondary";?>"><?php echo $question["point"];?></span></h4>
                                     </div>
                                 </li>
                             <?php
@@ -147,23 +146,25 @@ $questions = $test->getTestForGrading($_GET["passTestID"]);
                                                 <span class="text-decoration-underline">pravý stĺpec</span>
                                             </div>
                                             <div class="col-sm-1">
-                                                <span class="text-decoration-underline">check</span>
+                                                <span class="text-decoration-underline">správne</span>
                                             </div>
                                         </div>
                                         <?php $i = 0; foreach ($question["pair_ans"] as $answer){ $i++;?>
                                             <div class="py-2 row">
                                                 <div class="col-sm-5">
-                                                    <output><?php echo $answer["left_part"];?></output>
+                                                    <output><?php echo $answer["my_left"];?></output>
                                                 </div>
                                                 <div class="col-sm-4" >
-                                                    <output><?php echo $answer["right_part"];?></output>
+                                                    <output><?php echo $answer["my_right"];?></output>
+                                                </div>
+                                                <div class="col-sm-1" >
+                                                    <output><span class="badge <?php echo $answer["point"] == 1 ? "bg-primary" : "bg-secondary";?>"><?php echo $answer["point"];?></span></output>
                                                 </div>
                                             </div>
                                         <?php }?>
                                     </div>
                                     <div class="align-items-start d-flex">
-                                        <h4><span class="badge bg-primary">body</span></h4>
-                                        <h4><span class="badge bg-secondary">body</span></h4>
+                                        <h4><span class="badge <?php echo $question["point"] == 1 ? "bg-primary" : "bg-secondary";?>"><?php echo $question["point"];?></span></h4>
                                     </div>
                                 </li>
                             <?php
@@ -177,7 +178,7 @@ $questions = $test->getTestForGrading($_GET["passTestID"]);
                                         </div>
                                         <div class="py-2">
                                             <?php if($question["math_ans"]["type"] == "editor"){?>
-                                                <math-field read-only id="mathans-<?php echo $question["math_ans"]["pass_id"];?>" class="math-style" virtual-keyboard-mode="off"></math-field>
+                                                <math-field read-only id="mathans-<?php echo $question["math_ans"]["pass_id"];?>" class="math-style" virtual-keyboard-mode="off"><?php echo $question["math_ans"]["value"];?></math-field>
                                             <?php }else if($question["math_ans"]["type"] == "scanned") {?>
                                                 <img src="<?php echo $question["math_ans"]["value"];?>" onclick="showModal('<?php echo $question["math_ans"]["value"];?>')" alt="image answer" height="200px">
                                             <?php }else{?>
@@ -186,7 +187,7 @@ $questions = $test->getTestForGrading($_GET["passTestID"]);
                                         </div>
                                     </div>
                                     <div class="align-items-start d-flex">
-                                        <input class="form-check-input" name="mathCorrect-<?php echo $question["math_ans"]["pass_id"];?>" type="checkbox" value="" id="mathans-<?php echo $question["math_ans"]["pass_id"];?>">
+                                        <input class="form-check-input" name="math-<?php echo $question["math_ans"]["pass_id"];?>" <?php echo $question["point"] == 1 ? "checked" : "";?> type="checkbox" value="1" id="mathans-<?php echo $question["math_ans"]["pass_id"];?>">
                                         <label class="form-check-label" for="mathans-<?php echo $question["math_ans"]["pass_id"];?>">
                                             &nbsp;správne
                                         </label>
@@ -211,7 +212,7 @@ $questions = $test->getTestForGrading($_GET["passTestID"]);
                                         </div>
                                     </div>
                                     <div class="align-items-start d-flex">
-                                        <input class="form-check-input" name="picsCorrect-<?php echo $question["pics_ans"]["pass_id"];?>" type="checkbox" value="" id="picsans-<?php echo $question["pics_ans"]["pass_id"];?>">
+                                        <input class="form-check-input" name="pics-<?php echo $question["pics_ans"]["pass_id"];?>" <?php echo $question["point"] == 1 ? "checked" : "";?> type="checkbox" value="1" id="picsans-<?php echo $question["pics_ans"]["pass_id"];?>">
                                         <label class="form-check-label" for="picsans-<?php echo $question["pics_ans"]["pass_id"];?>">
                                             &nbsp;správne
                                         </label>

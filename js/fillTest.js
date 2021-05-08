@@ -1,4 +1,4 @@
-function changeInput(element, type, left_pair = null, imageToSave = null){
+function changeInput(element, type, left_pair = null, imageToSave = null, q_ID = null){
     switch (type){
         case "shortAns":
             console.log($(element));
@@ -17,7 +17,7 @@ function changeInput(element, type, left_pair = null, imageToSave = null){
         case "pairAns":
             console.log($(element));
             console.log(left_pair);
-            $.post( "../ModelControllers/TestModelController.php", { update_AValue: "pairAns", PA_ID: $(element).attr('id'), PAL_ans:left_pair,  PAR_ans:$("#pairright-"+$(element).val()).children().text()})
+            $.post( "../ModelControllers/TestModelController.php", { update_AValue: "pairAns", PA_ID: $(element).attr('id'), PAL_ans:left_pair,  PAR_ans:$("#pairright-"+q_ID+"-"+$(element).val()).children().text()})
                 .done(function( data ) {
                     console.log(data);
                 });
@@ -39,3 +39,10 @@ function changeInput(element, type, left_pair = null, imageToSave = null){
 
     }
 }
+
+
+window.onbeforeunload = confirmExit;
+function confirmExit() {
+    $.get("../Controllers/logout.php?logout=2");
+}
+
