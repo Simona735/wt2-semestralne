@@ -95,7 +95,7 @@ $basicInfo = $test->getTestDetails($_GET["test"]);
                 <i class="bi bi-save"></i>
                 PDF
             </a>
-            <a type="button" class="btn btn-sm btn-primary <?php if($basicInfo["active"] == 1) echo "disabled";?>" id="exportCSV-<?php echo $_GET["test"] ?>">
+            <a type="button" onclick="exportToCsv(this)" class="btn btn-sm btn-primary <?php if($basicInfo["active"] == 1) echo "disabled";?>" id="exportCSV-<?php echo $_GET["test"] ?>">
                 <i class="bi bi-save"></i>
                 CSV
             </a>
