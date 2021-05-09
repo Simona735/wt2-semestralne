@@ -189,7 +189,7 @@ class TestGradingController
 
     public function getStudentsPerTest($test_ID)
     {
-        $testStudents = $this->conn->prepare("SELECT pass_test.id as studentID, pass_test.graded as graded, concat(student.surname, ' ', student.name) as name, pass_test.tab_focus as focus, pass_test.status as status FROM pass_test JOIN student ON pass_test.student_ID = student.id WHERE pass_test.test_ID=:test_id ORDER BY pass_test.tab_focus, student.surname  ASC;");
+        $testStudents = $this->conn->prepare("SELECT pass_test.id as studentID, pass_test.graded as graded, concat(student.surname, ' ', student.name) as name, student.studentID as IDStudent, pass_test.tab_focus as focus, pass_test.status as status FROM pass_test JOIN student ON pass_test.student_ID = student.id WHERE pass_test.test_ID=:test_id ORDER BY pass_test.tab_focus, student.surname  ASC;");
         $testStudents->bindValue("test_id", $test_ID);
         $testStudents->setFetchMode(PDO::FETCH_ASSOC);
 
