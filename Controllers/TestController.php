@@ -226,6 +226,18 @@ class TestController
         }
     }
 
+    public function insertNotification($pass_test_id){
+        $setAns = $this->conn->prepare("insert into notifications(pass_test_ID) values (:pass_id)");
+        $setAns->bindValue("pass_id", $pass_test_id);
+
+        try {
+            $setAns->execute();
+            return "success";
+        }catch (Exception $e){
+            $this->returnAlert($e);
+        }
+    }
+
 
     function returnAlert($message){
         echo "<div class='alert alert-danger' role='alert'>".

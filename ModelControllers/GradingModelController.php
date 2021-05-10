@@ -17,3 +17,9 @@ if (isset($_POST["passTestID"])){
 
     header("location: ../teacher/testState.php?test=".$result);
 }
+
+if (isset($_POST["tabNotification"]) && isset($_POST["teacher"])){
+    $result = $test->getNotifications($_POST["teacher"]);
+
+    echo json_encode($result);
+}

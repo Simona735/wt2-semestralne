@@ -275,6 +275,24 @@ class TestGradingController
         }
     }
 
+    public function getNotifications($teacherId){
+        $getNotifications = $this->conn->prepare("SELECT pass_test.ID as id, CONCAT(student.name, ' ', student.surname) as name FROM test JOIN pass_test ON test.ID=pass_test.test_ID JOIN notifications ON pass_test.ID=notifications.pass_test_ID JOIN student ON pass_test.student_ID=student.id WHERE notifications.shown=0 AND test.teacher_ID=:teacherId ;");
+        $getNotifications->bindValue("teacherId", $teacherId);
+        $getNotifications->setFetchMode(PDO::FETCH_ASSOC);
+
+        $UpdateNotifications = $this->conn->prepare("UPDATE notifications SET shown=1 WHERE shown=0;");
+
+        try {
+            $getNotifications->execute();
+            $notifications = $getNotifications->fetchAll();
+            $UpdateNotifications->execute();
+
+            return $notifications;
+        } catch (Exception $e) {
+            $this->returnAlert($e);
+        }
+    }
+
 
     function returnAlert($message){
         echo "<div class='alert alert-danger' role='alert'>".

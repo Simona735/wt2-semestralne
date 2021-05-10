@@ -133,8 +133,11 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC))
                 </tbody>
             </table>
         </div>
-
     </main>
+
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" id="toastContainer">
+    </div>
+
 </div>
 
 </body>
@@ -142,4 +145,26 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC))
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 
 <script src="../js/javascript.js"></script>
+<script>
+    setInterval(function() {
+        $.ajax({
+            url: "../ModelControllers/GradingModelController.php",
+            type: "post",
+            data: {tabNotification: true, teacher: <?php echo $_SESSION["loggedTeacher"] ?>},
+            success: function (data){
+                var toastJson = JSON.parse(data);
+                jQuery.each(toastJson, function(i, val) {
+                    showToast(val["id"], val["name"]);
+                });
+            }
+        });
+    }, 2000);
+
+    function showToast(id, studentName){
+        var newToast1 = addToast(id, studentName);
+        $('#toastContainer').append(newToast1);
+
+        $('#'+id).toast('show');
+    }
+</script>
 </html>

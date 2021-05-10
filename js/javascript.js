@@ -42,3 +42,42 @@ function exportToCsv(element){
             window.URL.revokeObjectURL(url);
         });
 }
+
+function addToast(id, name){
+    let divToast = document.createElement("div");
+    let divFlex = document.createElement("div");
+    let divBody = document.createElement("div");
+    let button = document.createElement("button");
+
+
+    divToast.classList.add("toast");
+    divToast.classList.add("hide");
+    divToast.classList.add("align-items-center");
+
+    divToast.setAttribute("role", "alert");
+    divToast.setAttribute("aria-live", "assertive");
+    divToast.setAttribute("aria-atomic", "true");
+    divToast.setAttribute("id", id);
+
+    divFlex.classList.add("d-flex");
+
+    divBody.classList.add("toast-body");
+
+    button.classList.add("btn-close");
+    button.classList.add("me-2");
+    button.classList.add("m-auto");
+
+    button.setAttribute("data-bs-dismiss", "toast");
+    button.setAttribute("aria-label", "Close");
+
+    divBody.append(name + ' opustil/a tab');
+
+    divFlex.append(divBody);
+    divFlex.append(button);
+
+    divToast.append(divFlex);
+
+    return divToast;
+}
+
+

@@ -93,6 +93,7 @@ if(isset($_POST["passTestID"]) && isset($_POST["questionType"])){
 
 if(isset($_POST["tabFocus"]) && isset($_POST["pass_test"])){
     $result = $test->setFocus($_POST["pass_test"], $_POST["tabFocus"]);
+    $test->insertNotification($_POST["pass_test"]);
     echo json_encode($result);
 }
 
