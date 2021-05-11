@@ -24,6 +24,16 @@ class TestController
         $getQuestions = $this->conn->prepare("select * from question where test_ID = :test_ID");
         $getQuestions->bindValue("test_ID", $test->getID());
         $getQuestions->setFetchMode(PDO::FETCH_ASSOC);
+
+        $checkPassQuestions = $this->conn->prepare("select * from pass_question where pass_test_ID = :pass_test_ID");
+        $checkPassQuestions->bindValue("pass_test_ID", $_SESSION["passTestId"]);
+        $checkPassQuestions->execute();
+        $this->questions = $getQuestions->fetchAll();
+
+        if(sizeof($this->questions) != 0){
+            return $this->questions;
+        }
+
         $getQuestions->execute();
         $this->questions = $getQuestions->fetchAll();
         foreach ($this->questions as &$question) {
@@ -72,14 +82,14 @@ class TestController
                         $setAns->bindValue("question_ID", $passQuestionID);
                         $setAns->bindValue("pair_ans_ID", $row["ID"]);
                         $setAns->execute();
-                        array_push($helper, $row["left_part"]);
+                        array_push($helper, $row["right_part"]);
                         $row["pass_id"] = $this->conn->lastInsertId();
                         $question["pair_ans"][$row["ID"]] = $row;
                     }
                     shuffle($helper);
                     $i = 0;
                     foreach ($question["pair_ans"] as &$questionPart){
-                        $questionPart["left_part"] = $helper[$i++];
+                        $questionPart["right_part"] = $helper[$i++];
                     }
                     break;
                 case "math_ans":

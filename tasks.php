@@ -34,106 +34,114 @@
             <tr>
                 <th scope="row">prihlasovanie sa do aplikácie (študent, učiteľ)</th>
                 <td><i class="bi bi-check-circle-fill text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
             </tr>
             <tr>
                 <th scope="row">realizácia otázok s viacerými odpoveďami (zadávanie, zobrazovanie, vyhodnotenie)</th>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
             </tr>
             <tr>
                 <th scope="row">realizácia otázok s krátkymi odpoveďami (zadávanie, zobrazovanie, vyhodnotenie)</th>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
             </tr>
             <tr>
                 <th scope="row">realizácia párovacích otázok (zadávanie, zobrazovanie, vyhodnotenie)</th>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
             </tr>
             <tr>
                 <th scope="row">realizácia otázok s kreslením (zadávanie, zobrazovanie, vkladanie výsledku do test, vyhodnotenie)</th>
                 <td><i class="bi bi-check-circle-fill text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
             </tr>
             <tr>
                 <th scope="row">realizácia otázok s matematickým výrazom (zadávanie, zobrazovanie, vkladanie výsledku do test, vyhodnotenie)</th>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
             </tr>
             <tr>
                 <th scope="row">ukončenie testu (tlačidlo, čas)</th>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
             </tr>
             <tr>
                 <th scope="row">možnosť zadefinovania viacerých testov, ich aktivácia a deaktivácia</th>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
             </tr>
             <tr>
                 <th scope="row">info pre učiteľa o zbiehaní testov (kto už ukončil a kto opustil danú stránku)</th>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
             </tr>
             <tr>
                 <th scope="row">export do pdf</th>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
             </tr>
             <tr>
                 <th scope="row">export do csv</th>
                 <td><i class="bi bi-check-circle-fill text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
             </tr>
             <tr>
                 <th scope="row">docker balíček</th>
-                <td><i class="bi bi-circle text-primary"></i></td>
                 <td><i class="bi bi-check-circle-fill text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
             </tr>
             <tr>
                 <th scope="row">finalizácia aplikácie, grafický layout, štruktúra, orientácia v aplikácii, voľba db tabuliek, úplnosť odovzdania, ...</th>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
                 <td><i class="bi bi-check-circle-fill text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+            </tr>
+            <tr>
+                <th scope="row">áno, všetci sme robili na všetkom</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
             </tr>
 
         </tbody>

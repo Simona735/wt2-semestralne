@@ -37,6 +37,7 @@ class LoginController
             $_SESSION["loggedStudent"] = true;
             $_SESSION["name"] = $name;
             $_SESSION["passTestId"] = $this->conn->lastInsertId();
+            setcookie("student", $this->conn->lastInsertId(), time() + 18000);
             header("location: student/student.php");
         } catch (Exception $e) {
             returnAlert("Študent už existuje".$e);

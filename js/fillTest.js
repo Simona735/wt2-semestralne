@@ -41,8 +41,16 @@ function changeInput(element, type, left_pair = null, imageToSave = null, q_ID =
 }
 
 
-window.onbeforeunload = confirmExit;
-function confirmExit() {
-    $.get("../Controllers/logout.php?logout=2");
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/exam";
 }
+
+window.addEventListener("beforeunload", function(event) {
+    setCookie("student", "smith", -20);
+    document.getElementById("submitButton").click();
+     $.get("../Controllers/logout.php?logout=2");
+});
 

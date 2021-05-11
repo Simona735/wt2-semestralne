@@ -1,4 +1,5 @@
 <?php
+
 require_once "Controllers/LoginController.php";
 $login = new LoginController();
 session_start();
@@ -7,9 +8,9 @@ if (isset($_SESSION["loggedTeacher"]) || isset($_COOKIE["remember"])) {
     header("location: teacher/index.php");
 }
 
-if (isset($_SESSION["loggedStudent"])) {
-    header("location: student/student.php");
-}
+//if (isset($_SESSION["loggedStudent"])) {
+//    header("location: student/student.php");
+//}
 
 
 $action = isset($_POST['action']) ? $_POST['action'] : null;

@@ -11,7 +11,8 @@ if (isset($_GET["logout"]) && $_GET["logout"] == 1) {
 
 if (isset($_GET["logout"]) && $_GET["logout"] == 2) {
     $test->setStatus($_SESSION["passTestId"], 0);
-    setcookie("remember", "", time() - 18000, '/exam');
+    setcookie("student", "", time() - 18000, '/exam');
+    session_unset();
     session_destroy();
     header("location: ../index.php");
 }

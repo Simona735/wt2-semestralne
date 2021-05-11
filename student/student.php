@@ -1,17 +1,30 @@
 <?php
+session_start();
+if(!isset($_COOKIE["student"])){
+    header("location: ../index.php");
+
+}
+
+if($_COOKIE["student"] == "smith"){
+    header("location: ../index.php");
+
+}
+
+if(!isset($_SESSION["loggedStudent"])){
+    header("location: ../index.php");
+}
+
 require_once "../Controllers/TestController.php";
 require_once "../db connection/Database.php";
 
 $conn = (new Database())->getConnection();
 $test = new TestController();
 
-session_start();
-if(!isset($_SESSION["loggedStudent"])){
-    header("location: ../index.php");
-}
-
 $location = (@$_SERVER["HTTPS"] == "on") ? "https://" : "http://";
 $location .= $_SERVER["SERVER_NAME"];// . $_SERVER["REQUEST_URI"];
+
+
+$questions = $test->getTest($_SESSION["testID"]);
 
 
 ?>
@@ -57,7 +70,7 @@ $location .= $_SERVER["SERVER_NAME"];// . $_SERVER["REQUEST_URI"];
             <h2 class="py-1">Test číslo <?php echo $_SESSION["testID"]; ?></h2>
             <form>
                 <ol id="testContent" class="list-group list-group-numbered">
-                    <?php foreach ($test->getTest($_SESSION["testID"]) as $question){
+                    <?php foreach ($questions as $question){
                         switch ($question["type"]){
                             case "short_ans":
                                 ?>
