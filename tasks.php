@@ -65,7 +65,7 @@
             </tr>
             <tr>
                 <th scope="row">realizácia otázok s kreslením (zadávanie, zobrazovanie, vkladanie výsledku do test, vyhodnotenie)</th>
-                <td><i class="bi bi-circle text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
                 <td><i class="bi bi-circle text-primary"></i></td>
                 <td><i class="bi bi-circle text-primary"></i></td>
                 <td><i class="bi bi-circle text-primary"></i></td>
@@ -113,7 +113,7 @@
             </tr>
             <tr>
                 <th scope="row">export do csv</th>
-                <td><i class="bi bi-circle text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
                 <td><i class="bi bi-circle text-primary"></i></td>
                 <td><i class="bi bi-circle text-primary"></i></td>
                 <td><i class="bi bi-circle text-primary"></i></td>
@@ -122,7 +122,7 @@
             <tr>
                 <th scope="row">docker balíček</th>
                 <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
                 <td><i class="bi bi-circle text-primary"></i></td>
                 <td><i class="bi bi-circle text-primary"></i></td>
                 <td><i class="bi bi-circle text-primary"></i></td>
@@ -132,7 +132,7 @@
                 <td><i class="bi bi-circle text-primary"></i></td>
                 <td><i class="bi bi-circle text-primary"></i></td>
                 <td><i class="bi bi-circle text-primary"></i></td>
-                <td><i class="bi bi-circle text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
                 <td><i class="bi bi-circle text-primary"></i></td>
             </tr>
 
