@@ -48,9 +48,6 @@ if (!isset($_SESSION["loggedTeacher"])) {
                         <a class="nav-link" href="addTest.php" tabindex="-1">Nový test</a>
                     </li>
                     <li class="nav-item me-2">
-                        <a class="nav-link" href="notifications.php" tabindex="-1" >Upozornenia</a>
-                    </li>
-                    <li class="nav-item me-2">
                         <a class="nav-link active" href="#" aria-current="page" >Informácie</a>
                     </li>
                 </ul>
@@ -113,14 +110,9 @@ if (!isset($_SESSION["loggedTeacher"])) {
                 študent dostane 1 bod.
             </p>
             <h3>Kedy môže učteľ opraviť testy?</h3>
-            <p class="card-text"> Test na opravu sa učiteľovi sprístupní ak budú splnenené dve hlavné podmienky:
-            </p>
-            <ol>
-                <li>Prístunosť testu pre študentov musí byť vypnutá.</li>
-                <li>Každý študent, ktorý začal písať test ho musel aj ukončiť.</li>
-            </ol>
-            <!-- <img src="" alt="">
-             <img src="" alt=""> -->
+            <p class="card-text"> Test na opravu sa učiteľovi sprístupní hneď ako študent test dopíše.</p>
+            <p class="card-text"> Učiteľ si bude môcť stiahnuť test vo formáte PDF aj CSV. Táto funkcia bude sprístupnená
+                učiteľovi až vtedy, keď test bude neaktívny.</p>
         </div>
     </main>
     <div class="toast-container position-fixed bottom-0 end-0 p-3" id="toastContainer">

@@ -149,6 +149,10 @@ button.bg-primary:focus {
     color: #FFA827 !important;
 }
 
+.text-check {
+    color: #e38700 !important;
+}
+
 .text-primary-dark {
     color: #ab6600 !important;
 }

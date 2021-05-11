@@ -58,9 +58,6 @@ $email = $teacher["email"];
                         <a class="nav-link" href="addTest.php" tabindex="-1">Nový test</a>
                     </li>
                     <li class="nav-item me-2">
-                        <a class="nav-link" href="notifications.php" tabindex="-1" >Upozornenia</a>
-                    </li>
-                    <li class="nav-item me-2">
                         <a class="nav-link" href="points.php" tabindex="-1" >Informácie</a>
                     </li>
                 </ul>

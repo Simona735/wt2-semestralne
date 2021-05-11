@@ -148,3 +148,11 @@ zwibbler{
     background-color: #FFA827;
     border-color: #FFA827;
 }
+
+#taskTable tr th{
+    text-align: left;
+}
+
+/*.taskTable tr td{*/
+/*    text-align: center;*/
+/*}*/

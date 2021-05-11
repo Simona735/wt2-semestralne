@@ -46,9 +46,13 @@ switch ($action) {
     <!-- Custom styles for this template -->
     <link href="css/styles.css" rel="stylesheet">
     <link href="css/primary.css" rel="stylesheet">
+    <link rel="icon" href="img/to%20do%20icon.png" type="image/png" sizes="16x16">
 </head>
-<body class="text-center bg-light">
-<div class="cover-container pt-5 d-flex mx-auto flex-column">
+<body class=" bg-light">
+<div class="text-start">
+    <a href="tasks.php" type="button" class="btn btn-sm btn-primary m-3">Úlohy</a>
+</div>
+<div class="cover-container text-center pt-4 d-flex mx-auto flex-column">
     <main role="main" class="m-auto w-25">
         <img class="mb-4" src="img/to%20do%20icon.png" alt="" width="72" height="72">
         <h1 class="h3 mb-3 fw-normal">Exam portal</h1>

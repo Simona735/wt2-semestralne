@@ -49,9 +49,6 @@ if (!isset($_SESSION["loggedTeacher"])) {
                         <a class="nav-link active" aria-current="page" href="#">Nový test</a>
                     </li>
                     <li class="nav-item me-2">
-                        <a class="nav-link" href="notifications.php" tabindex="-1">Upozornenia</a>
-                    </li>
-                    <li class="nav-item me-2">
                         <a class="nav-link" href="points.php" tabindex="-1">Informácie</a>
                     </li>
                 </ul>

@@ -41,7 +41,7 @@ function console_log( $data ){
     <link href="../css/primary.css" rel="stylesheet">
     <link rel="icon" href="../img/to%20do%20icon.png" type="image/png" sizes="16x16">
 </head>
-<body class="text-center">
+<body class="text-center" id="content">
 <div class="cover-container full-page d-flex w-100 h-100 mx-auto flex-column">
     <div class="d-flex flex-row">
         <div class="p-3 bg-light w-100 test-page overflow-auto ">
@@ -178,8 +178,6 @@ function console_log( $data ){
     </div>
 
 </div>
-
-
 </body>
 <script src='https://unpkg.com/mathlive/dist/mathlive.min.js'></script>
 <script src="https://code.jquery.com/jquery-3.5.1.js" crossorigin="anonymous"></script>
