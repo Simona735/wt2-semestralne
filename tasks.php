@@ -136,6 +136,14 @@
                 <td><i class="bi bi-check-circle-fill text-primary"></i></td>
             </tr>
             <tr>
+                <th scope="row">bonusova optimalizacia pre tablet</th>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+                <td><i class="bi bi-check-circle-fill text-primary"></i></td>
+            </tr>
+            <tr>
                 <th scope="row">áno, všetci sme robili na všetkom</th>
                 <td></td>
                 <td></td>

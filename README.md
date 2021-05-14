@@ -14,11 +14,11 @@ Link to [page](https://wt132.fei.stuba.sk/exam/).
 - [X] realizácia otázok s matematickým výrazom (zadávanie, zobrazovanie, vkladanie výsledku do test, vyhodnotenie)                   
 - [X] ukončenie testu (tlačidlo, čas)                                                                                                
 - [X] možnosť zadefinovania viacerých testov, ich aktivácia a deaktivácia                                                            
-- [ ] info pre učiteľa o zbiehaní testov (kto už ukončil a kto opustil danú stránku)                                                 
-- [ ] export do pdf                                                                                                                  
+- [X] info pre učiteľa o zbiehaní testov (kto už ukončil a kto opustil danú stránku)                                                 
+- [X] export do pdf                                                                                                                  
 - [X] export do csv                                                                                                                  
-- [ ] docker balíček                                                                                                                 
-- [ ] finalizácia aplikácie, grafický layout, štruktúra, orientácia v aplikácii, voľba db tabuliek, úplnosť odovzdania projektu, ... 
+- [X] docker balíček                                                                                                                 
+- [X] finalizácia aplikácie, grafický layout, štruktúra, orientácia v aplikácii, voľba db tabuliek, úplnosť odovzdania projektu, ... 
                                                                                                                                
 
 ## Credits
